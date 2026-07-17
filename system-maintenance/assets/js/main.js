@@ -87,4 +87,32 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', update);
     update();
   });
+
+  // フローティングCTA
+  const fab = document.getElementById('floating-cta');
+  if (fab) {
+    const toggle = fab.querySelector('.floating-cta__toggle');
+    const menu = fab.querySelector('.floating-cta__menu');
+    const setOpen = (open) => {
+      fab.classList.toggle('floating-cta--open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      menu.hidden = !open;
+    };
+    toggle.addEventListener('click', () => {
+      const isOpen = fab.classList.contains('floating-cta--open');
+      setOpen(!isOpen);
+    });
+    // 外側クリックで閉じる
+    document.addEventListener('click', (e) => {
+      if (!fab.contains(e.target) && fab.classList.contains('floating-cta--open')) {
+        setOpen(false);
+      }
+    });
+    // Escで閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+    // 項目クリックで閉じる
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  }
 });

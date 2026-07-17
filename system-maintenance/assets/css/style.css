@@ -1377,3 +1377,73 @@ body {
 @media (max-width: 900px) {
   .footer__grid { grid-template-columns: 1fr; gap: 24px; }
 }
+
+/* ============================================
+   Floating CTA
+   ============================================ */
+.floating-cta {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+}
+.floating-cta__toggle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color-amber);
+  color: var(--color-white);
+  box-shadow: var(--shadow-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast), background-color var(--transition-fast);
+}
+.floating-cta__toggle:hover {
+  background-color: var(--color-amber-dark);
+  transform: scale(1.05);
+}
+.floating-cta__toggle svg { width: 26px; height: 26px; }
+.floating-cta__menu {
+  position: absolute;
+  right: 0;
+  bottom: 72px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  pointer-events: none;
+}
+.floating-cta--open .floating-cta__menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.floating-cta__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background-color: var(--color-white);
+  border-radius: 999px;
+  box-shadow: var(--shadow-card);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-navy);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  white-space: nowrap;
+}
+.floating-cta__item svg { width: 18px; height: 18px; }
+.floating-cta__item:hover {
+  background-color: var(--color-navy);
+  color: var(--color-white);
+}
+
+@media (max-width: 560px) {
+  .floating-cta { right: 16px; bottom: 16px; }
+  .floating-cta__toggle { width: 52px; height: 52px; }
+  .floating-cta__toggle svg { width: 22px; height: 22px; }
+}

@@ -733,7 +733,25 @@
 </footer>
 
   <!-- フローティングCTA -->
-  <div id="floating-cta" class="floating-cta"><!-- Task 21 --></div>
+  <div id="floating-cta" class="floating-cta">
+  <button class="floating-cta__toggle" aria-expanded="false" aria-controls="floating-cta-menu" aria-label="お問い合わせメニューを開く">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+  <ul id="floating-cta-menu" class="floating-cta__menu" hidden>
+    <li><a href="#contact" class="floating-cta__item floating-cta__item--consult">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+      <span>無料相談</span>
+    </a></li>
+    <li><a href="#contact" class="floating-cta__item floating-cta__item--contact">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
+      <span>問い合わせ</span>
+    </a></li>
+    <li><a href="https://jv-it.jp/company" target="_blank" rel="noopener" class="floating-cta__item floating-cta__item--company">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+      <span>会社概要</span>
+    </a></li>
+  </ul>
+</div>
 
   <!-- JS -->
   <script src="assets/js/main.js" defer></script>
