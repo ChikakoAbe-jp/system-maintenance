@@ -67,6 +67,69 @@
     }
   }
   </script>
+
+  <!-- Structured Data: FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "どんな規模のシステムに対応できますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "小規模のWebサイトから、複数サーバ・複数サービスで構成された大規模基幹システムまで対応可能です。" }
+      },
+      {
+        "@type": "Question",
+        "name": "現在他社と契約中でも相談できますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "もちろん可能です。相談時点で他社契約の解約義務はありません。秘密保持契約のもと厳重に管理いたします。" }
+      },
+      {
+        "@type": "Question",
+        "name": "AIはどの範囲で使われますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "AIは監視ログ分析・一次判定・レポート作成などに活用します。本番環境への変更適用など重要操作はエンジニア承認が必須です。" }
+      },
+      {
+        "@type": "Question",
+        "name": "引き継ぎ期間はどのくらい必要ですか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "標準的なケースで最短1ヶ月です。ドキュメント不足でも段階的に引き継ぎ可能です。" }
+      },
+      {
+        "@type": "Question",
+        "name": "ドキュメントがないシステムでも引き継げますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "はい、可能です。ソースコード解析・稼働ログから構造を再構築します。" }
+      },
+      {
+        "@type": "Question",
+        "name": "ベトナム拠点で日本語対応は可能ですか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "可能です。日本本社のPMが窓口を担当し、ベトナム側との連携をブリッジします。" }
+      },
+      {
+        "@type": "Question",
+        "name": "契約期間の縛りはありますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "契約期間・解約条件は個別協議のうえ決定します。" }
+      },
+      {
+        "@type": "Question",
+        "name": "料金はどのように決まりますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "サービス範囲・システム規模・対応時間帯などから算出します。3プランを基本に個別カスタマイズ可能です。" }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Structured Data: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://jv-it.jp/" },
+      { "@type": "ListItem", "position": 2, "name": "LP", "item": "https://jv-it.jp/lp/" },
+      { "@type": "ListItem", "position": 3, "name": "システム運用保守", "item": "https://jv-it.jp/lp/system-maintenance" }
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- ヘッダー -->
