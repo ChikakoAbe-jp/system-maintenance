@@ -47,4 +47,44 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.6 });
   counters.forEach(el => countObserver.observe(el));
+
+  // カルーセル
+  document.querySelectorAll('[data-carousel]').forEach(carousel => {
+    const track = carousel.querySelector('.carousel__track');
+    const prev = carousel.querySelector('[data-carousel-prev]');
+    const next = carousel.querySelector('[data-carousel-next]');
+    const items = Array.from(track.children);
+    let index = 0;
+
+    const getVisibleCount = () => {
+      const width = window.innerWidth;
+      if (width <= 560) return 1;
+      if (width <= 900) return 2;
+      return 3;
+    };
+
+    const update = () => {
+      const visible = getVisibleCount();
+      const maxIndex = Math.max(0, items.length - visible);
+      index = Math.min(index, maxIndex);
+      const card = items[0];
+      const gap = 24;
+      const step = card.offsetWidth + gap;
+      track.style.transform = `translateX(${-index * step}px)`;
+      prev.disabled = index === 0;
+      next.disabled = index >= maxIndex;
+    };
+
+    prev.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
+    next.addEventListener('click', () => { index = index + 1; update(); });
+
+    // キーボード操作
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { prev.click(); }
+      if (e.key === 'ArrowRight') { next.click(); }
+    });
+
+    window.addEventListener('resize', update);
+    update();
+  });
 });
