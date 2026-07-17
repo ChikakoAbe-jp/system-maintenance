@@ -56,7 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
   counters.forEach(el => countObserver.observe(el));
 
   // カルーセル
-  document.querySelectorAll('[data-carousel]').forEach(carousel => {
+  const carousels = document.querySelectorAll('[data-carousel]');
+  const carouselUpdaters = [];
+
+  carousels.forEach(carousel => {
     const track = carousel.querySelector('.carousel__track');
     const prev = carousel.querySelector('[data-carousel-prev]');
     const next = carousel.querySelector('[data-carousel-next]');
@@ -91,9 +94,20 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'ArrowRight') { next.click(); }
     });
 
-    window.addEventListener('resize', update);
+    carouselUpdaters.push(update);
     update();
   });
+
+  // リサイズはデバウンスで一括処理（イベントリークを防止）
+  if (carouselUpdaters.length > 0) {
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        carouselUpdaters.forEach(fn => fn());
+      }, 100);
+    });
+  }
 
   // フローティングCTA
   const fab = document.getElementById('floating-cta');

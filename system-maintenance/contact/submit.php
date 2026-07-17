@@ -2,6 +2,8 @@
 // お問い合わせフォーム 送信処理
 declare(strict_types=1);
 
+session_start();
+
 // 設定
 $TO_EMAIL = 'contact@jv-it.jp';
 $FROM_EMAIL = 'noreply@jv-it.jp';
@@ -11,6 +13,13 @@ $SUBJECT_PREFIX = '[JV-IT LP] ';
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     exit('Method Not Allowed');
+}
+
+// CSRFトークン検証
+if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) ||
+    !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+    http_response_code(403);
+    exit('セッションが無効です。ページを再読み込みしてください。');
 }
 
 // Honeypot
@@ -44,6 +53,12 @@ if (!$email) {
 }
 // ヘッダーインジェクション対策：CRLF・NULLバイトを除去
 $email = str_replace(["\r", "\n", "\0"], '', $email);
+$name = str_replace(["\r", "\n", "\0"], '', $name);
+$kana = str_replace(["\r", "\n", "\0"], '', $kana);
+$company = str_replace(["\r", "\n", "\0"], '', $company);
+$tel = str_replace(["\r", "\n", "\0"], '', $tel);
+// message: 改行は保持、\r と \0 のみ除去
+$message = str_replace(["\r", "\0"], '', $message);
 
 // 種別のマッピング
 $typeMap = [

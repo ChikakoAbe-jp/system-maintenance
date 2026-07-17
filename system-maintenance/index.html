@@ -169,7 +169,7 @@
             <span class="hero__badge">AWS 99.99% 稼働</span>
           </div>
         </div>
-        <img class="hero__watermark" src="assets/img/logo-jvit-white.png" alt="JV-IT" aria-hidden="true">
+        <img class="hero__watermark" src="assets/img/logo-jvit-white.png" alt="" aria-hidden="true">
       </div>
     </section>
     <section id="stats-bar" class="stats-bar">
@@ -551,6 +551,11 @@
       </li>
       <li class="team-card fade-in">
         <span class="team-card__avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></span>
+        <p class="team-card__role">JV-IT HOLDINGS<br>取締役 CFO</p>
+        <p class="team-card__body">2020年よりJV-ITホールディングスの財務戦略を統括。国内外の複数拠点を横断した経営基盤を構築している。</p>
+      </li>
+      <li class="team-card fade-in">
+        <span class="team-card__avatar" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg></span>
         <p class="team-card__role">JV-IT TECHS<br>代表取締役 CEO</p>
         <p class="team-card__body">CSK出身、SIer10年以上のキャリアで100名以上のマネジメント経験。2007年よりベトナム進出、日越をつなぐ開発・運用組織を率いている。</p>
       </li>
@@ -726,6 +731,7 @@
       </div>
       <form id="contact-form" class="contact-form" action="contact/submit.php" method="POST" novalidate>
         <input type="text" name="_hp" class="contact-form__hp" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="csrf_token" id="cf-csrf" value="">
         <div class="contact-form__row">
           <label for="cf-type" class="contact-form__label">お問い合わせ種別<span class="contact-form__req">必須</span></label>
           <select id="cf-type" name="type" required>
@@ -770,7 +776,7 @@
             <a href="https://jv-it.jp/privacy" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します<span class="contact-form__req">必須</span>
           </label>
         </div>
-        <p id="contact-form-error" class="contact-form__error" hidden></p>
+        <p id="contact-form-error" class="contact-form__error" role="alert" aria-live="assertive" hidden></p>
         <button type="submit" class="btn btn--primary contact-form__submit">送信する</button>
       </form>
     </div>

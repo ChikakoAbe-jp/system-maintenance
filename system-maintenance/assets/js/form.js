@@ -1,5 +1,11 @@
 // お問い合わせフォーム
 (() => {
+  // CSRFトークンをサーバーから取得してhidden fieldに注入
+  fetch('contact/token.php', { credentials: 'same-origin' })
+    .then(r => r.json())
+    .then(d => { const el = document.getElementById('cf-csrf'); if (el && d.token) el.value = d.token; })
+    .catch(() => {});
+
   const form = document.getElementById('contact-form');
   const errorEl = document.getElementById('contact-form-error');
   if (!form) return;
