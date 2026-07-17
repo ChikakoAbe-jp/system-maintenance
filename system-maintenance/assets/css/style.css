@@ -1000,3 +1000,61 @@ body {
 @media (max-width: 560px) {
   .team__list { grid-template-columns: 1fr; }
 }
+
+/* ============================================
+   Flow
+   ============================================ */
+.flow__list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  position: relative;
+}
+.flow__list::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background-color: var(--color-gray-200);
+  z-index: 0;
+}
+.flow-step {
+  position: relative;
+  z-index: 1;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+  text-align: center;
+}
+.flow-step__num {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-color: var(--color-cyan);
+  color: var(--color-white);
+  border-radius: 50%;
+  font-weight: 700;
+  line-height: 40px;
+  margin-bottom: 16px;
+}
+.flow-step__title {
+  font-size: 16px;
+  color: var(--color-navy);
+  margin-bottom: 12px;
+}
+.flow-step__body {
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .flow__list { grid-template-columns: 1fr 1fr; }
+  .flow__list::before { display: none; }
+}
+@media (max-width: 560px) {
+  .flow__list { grid-template-columns: 1fr; }
+}
