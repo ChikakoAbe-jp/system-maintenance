@@ -42,6 +42,8 @@ if (!$email) {
     http_response_code(400);
     exit('メールアドレスの形式が不正です');
 }
+// ヘッダーインジェクション対策：CRLF・NULLバイトを除去
+$email = str_replace(["\r", "\n", "\0"], '', $email);
 
 // 種別のマッピング
 $typeMap = [
@@ -50,7 +52,12 @@ $typeMap = [
     'question' => '質問',
     'other' => 'その他',
 ];
-$typeLabel = $typeMap[$type] ?? 'その他';
+// 許可された種別以外は拒否
+if (!array_key_exists($type, $typeMap)) {
+    http_response_code(400);
+    exit('不正なお問い合わせ種別です');
+}
+$typeLabel = $typeMap[$type];
 
 // 本文組立
 $body = "以下のお問い合わせを受け付けました。\n\n";
@@ -82,7 +89,13 @@ if ($sent) {
     $autoBody .= "以下の内容でお問い合わせを受け付けました。\n";
     $autoBody .= "1営業日以内にご返信いたします。\n\n";
     $autoBody .= $body;
-    mb_send_mail($email, '[JV-IT] お問い合わせを受け付けました', $autoBody, $headers);
+
+    // 自動返信用ヘッダー（管理者メールのヘッダーとは別変数で管理）
+    $autoHeaders  = "From: {$FROM_EMAIL}\r\n";
+    $autoHeaders .= "Reply-To: {$TO_EMAIL}\r\n"; // 返信先は管理者アドレス
+    $autoHeaders .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+    mb_send_mail($email, '[JV-IT] お問い合わせを受け付けました', $autoBody, $autoHeaders);
 }
 
 if (!$sent) {
