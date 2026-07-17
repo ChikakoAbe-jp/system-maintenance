@@ -14,4 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.15 });
   fadeElements.forEach(el => observer.observe(el));
+
+  // ヘッダー スクロール検知
+  const header = document.getElementById('header');
+  if (header) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 8) header.classList.add('header--scrolled');
+      else header.classList.remove('header--scrolled');
+    }, { passive: true });
+  }
 });
