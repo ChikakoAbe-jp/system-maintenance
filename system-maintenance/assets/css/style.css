@@ -353,3 +353,38 @@ body {
   .hero__ctas .btn { width: 100%; }
   .hero__watermark { height: 28px; right: 16px; bottom: 16px; }
 }
+
+/* ============================================
+   Stats Bar
+   ============================================ */
+.stats-bar {
+  background-color: var(--color-navy);
+  color: var(--color-white);
+  padding: 48px 0;
+}
+.stats-bar__list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  text-align: center;
+}
+.stat__value {
+  display: block;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--color-cyan);
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.stat__label {
+  display: block;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .stats-bar__list { grid-template-columns: repeat(2, 1fr); }
+  .stat__value { font-size: 36px; }
+}
