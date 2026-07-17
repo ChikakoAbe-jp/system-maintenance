@@ -425,3 +425,60 @@ body {
 @media (max-width: 900px) {
   .problems__list { grid-template-columns: 1fr; }
 }
+
+/* ============================================
+   Solution
+   ============================================ */
+.solution__lead {
+  max-width: 880px;
+  margin: -24px auto 56px;
+  text-align: center;
+  color: var(--color-gray-800);
+}
+.solution__steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  counter-reset: step;
+}
+.solution-step {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  position: relative;
+}
+.solution-step__num {
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-cyan);
+  margin-bottom: 12px;
+}
+.solution-step__title {
+  font-size: 18px;
+  color: var(--color-navy);
+  margin-bottom: 12px;
+}
+.solution-step__body {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.solution-step__owner {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: var(--color-gray-50);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--color-navy);
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .solution__steps { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .solution__steps { grid-template-columns: 1fr; }
+}
