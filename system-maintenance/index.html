@@ -202,7 +202,46 @@
     </ol>
   </div>
 </section>
-    <section id="simulator" class="simulator"><!-- Task 9 --></section>
+    <section id="simulator" class="simulator section section--soft">
+  <div class="container">
+    <h2 class="section-title">
+      <span class="section-title__lead">COST SIMULATOR</span>
+      あなたの会社の保守費、いくら削減できる？
+    </h2>
+    <div class="simulator__grid">
+      <div class="simulator__inputs">
+        <label class="simulator__label" for="sim-input">現在の月額保守費</label>
+        <div class="simulator__input-row">
+          <input type="number" id="sim-input" min="10" max="300" step="1" value="80">
+          <span class="simulator__unit">万円 / 月</span>
+        </div>
+        <input type="range" id="sim-range" min="10" max="300" step="10" value="80" aria-label="月額保守費スライダー">
+        <div class="simulator__range-scale">
+          <span>10万</span><span>150万</span><span>300万</span>
+        </div>
+        <p class="simulator__note">※参考値です。実際の削減率はシステム構成・業務内容により異なります。詳細は個別診断にて。</p>
+      </div>
+      <div class="simulator__outputs">
+        <div class="simulator__result">
+          <span class="simulator__result-label">想定 月額削減</span>
+          <span class="simulator__result-value" id="sim-monthly">28<span class="simulator__result-unit">万円</span></span>
+        </div>
+        <div class="simulator__result">
+          <span class="simulator__result-label">想定 年間削減</span>
+          <span class="simulator__result-value" id="sim-yearly">336<span class="simulator__result-unit">万円</span></span>
+        </div>
+        <div class="simulator__breakdown">
+          <div class="simulator__bar">
+            <span class="simulator__bar-ai" id="sim-bar-ai" style="width: 35%">AI自動化 35%</span>
+            <span class="simulator__bar-human" id="sim-bar-human" style="width: 65%">エンジニア対応 65%</span>
+          </div>
+          <p class="simulator__breakdown-note">AI自動化可能な業務と、エンジニアが判断する業務の割合（参考値）</p>
+        </div>
+        <a href="#contact" class="btn btn--primary">この条件で無料診断を依頼する</a>
+      </div>
+    </div>
+  </div>
+</section>
     <section id="strengths" class="strengths"><!-- Task 10 --></section>
     <section id="cases" class="cases"><!-- Task 11 --></section>
     <section id="services" class="services"><!-- Task 12 --></section>
