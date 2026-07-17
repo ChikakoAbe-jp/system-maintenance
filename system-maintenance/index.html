@@ -645,7 +645,70 @@
     </div>
   </div>
 </section>
-    <section id="contact" class="contact"><!-- Task 19 --></section>
+    <section id="contact" class="contact section section--soft">
+  <div class="container">
+    <h2 class="section-title">
+      <span class="section-title__lead">CONTACT</span>
+      無料相談・お問い合わせ
+    </h2>
+    <p class="contact__lead">お問い合わせいただいた内容には、1営業日以内にご返信いたします。まずはお気軽にご相談ください。</p>
+    <div class="contact__box">
+      <div class="contact__trust">
+        <span class="contact__pmark" aria-label="Pマーク（プライバシーマーク）">P Mark</span>
+        <p>個人情報保護のため、Pマーク準拠の管理体制で対応いたします。詳細はプライバシーポリシーをご確認ください。</p>
+      </div>
+      <form id="contact-form" class="contact-form" action="contact/submit.php" method="POST" novalidate>
+        <input type="text" name="_hp" class="contact-form__hp" tabindex="-1" autocomplete="off">
+        <div class="contact-form__row">
+          <label for="cf-type" class="contact-form__label">お問い合わせ種別<span class="contact-form__req">必須</span></label>
+          <select id="cf-type" name="type" required>
+            <option value="">選択してください</option>
+            <option value="consult">無料相談を希望</option>
+            <option value="quote">お見積りを依頼</option>
+            <option value="question">サービスについて質問</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+        <div class="contact-form__row contact-form__row--two">
+          <div>
+            <label for="cf-name" class="contact-form__label">お名前<span class="contact-form__req">必須</span></label>
+            <input type="text" id="cf-name" name="name" required autocomplete="name">
+          </div>
+          <div>
+            <label for="cf-kana" class="contact-form__label">ふりがな<span class="contact-form__req">必須</span></label>
+            <input type="text" id="cf-kana" name="kana" required>
+          </div>
+        </div>
+        <div class="contact-form__row">
+          <label for="cf-company" class="contact-form__label">会社名<span class="contact-form__opt">任意</span></label>
+          <input type="text" id="cf-company" name="company" autocomplete="organization">
+        </div>
+        <div class="contact-form__row contact-form__row--two">
+          <div>
+            <label for="cf-email" class="contact-form__label">メールアドレス<span class="contact-form__req">必須</span></label>
+            <input type="email" id="cf-email" name="email" required autocomplete="email">
+          </div>
+          <div>
+            <label for="cf-tel" class="contact-form__label">電話番号<span class="contact-form__req">必須</span></label>
+            <input type="tel" id="cf-tel" name="tel" required autocomplete="tel" pattern="[0-9\-]+">
+          </div>
+        </div>
+        <div class="contact-form__row">
+          <label for="cf-message" class="contact-form__label">お問い合わせ内容<span class="contact-form__req">必須</span></label>
+          <textarea id="cf-message" name="message" rows="6" required></textarea>
+        </div>
+        <div class="contact-form__row contact-form__consent">
+          <label>
+            <input type="checkbox" name="consent" required>
+            <a href="https://jv-it.jp/privacy" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します<span class="contact-form__req">必須</span>
+          </label>
+        </div>
+        <p id="contact-form-error" class="contact-form__error" hidden></p>
+        <button type="submit" class="btn btn--primary contact-form__submit">送信する</button>
+      </form>
+    </div>
+  </div>
+</section>
   </main>
 
   <footer id="footer" class="footer"><!-- Task 20 --></footer>
