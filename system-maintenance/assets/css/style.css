@@ -269,3 +269,87 @@ body {
 @media (max-width: 900px) {
   .header__nav { display: none; }
 }
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero {
+  position: relative;
+  min-height: 640px;
+  color: var(--color-white);
+  overflow: hidden;
+}
+.hero__bg {
+  position: absolute; inset: 0; z-index: 1;
+}
+.hero__bg img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.hero__overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(11, 42, 74, 0.92) 0%, rgba(26, 58, 92, 0.85) 100%);
+}
+.hero__inner {
+  position: relative; z-index: 2;
+  padding: 120px 24px 96px;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+}
+.hero__content {
+  max-width: 780px;
+}
+.hero__eyebrow {
+  font-size: 14px;
+  color: var(--color-cyan);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+.hero__title {
+  font-size: 56px;
+  line-height: 1.3;
+  margin-bottom: 24px;
+}
+.hero__lead {
+  font-size: 18px;
+  line-height: 1.8;
+  margin-bottom: 40px;
+  max-width: 640px;
+  opacity: 0.95;
+}
+.hero__ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.hero__badges {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hero__badge {
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  font-size: 13px;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+.hero__watermark {
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  height: 40px;
+  width: auto;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .hero { min-height: 560px; }
+  .hero__inner { padding: 80px 16px 64px; }
+  .hero__title { font-size: 32px; }
+  .hero__lead { font-size: 16px; }
+  .hero__ctas .btn { width: 100%; }
+  .hero__watermark { height: 28px; right: 16px; bottom: 16px; }
+}

@@ -87,7 +87,28 @@
   </header>
 
   <main>
-    <section id="hero" class="hero"><!-- Task 5 --></section>
+    <section id="hero" class="hero">
+      <div class="hero__bg" aria-hidden="true">
+        <img src="assets/img/hero-bg.jpg" alt="" loading="eager" fetchpriority="high">
+        <div class="hero__overlay"></div>
+      </div>
+      <div class="container hero__inner">
+        <div class="hero__content fade-in">
+          <p class="hero__eyebrow">AI × オフショア20年ノウハウ</p>
+          <h1 class="hero__title">保守を、AIと<br>20年のノウハウで。</h1>
+          <p class="hero__lead">Anthropic認定エンジニア100名 × 日越87名体制のハイブリッド保守で、システム運用を刷新します。ブラックボックス化したシステムも、最短1ヶ月で引き継ぎ可能です。</p>
+          <div class="hero__ctas">
+            <a href="#contact" class="btn btn--primary">無料で相談する</a>
+            <a href="#simulator" class="btn btn--on-dark">削減シミュレーターを試す</a>
+          </div>
+          <div class="hero__badges" aria-label="認証・実績">
+            <span class="hero__badge">Anthropic Certified</span>
+            <span class="hero__badge">AWS 99.99% 稼働</span>
+          </div>
+        </div>
+        <img class="hero__watermark" src="assets/img/logo-jvit-white.png" alt="JV-IT" aria-hidden="true">
+      </div>
+    </section>
     <section id="stats-bar" class="stats-bar"><!-- Task 6 --></section>
     <section id="problems" class="problems"><!-- Task 7 --></section>
     <section id="solution" class="solution"><!-- Task 8 --></section>
