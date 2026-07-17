@@ -9,6 +9,7 @@
   const yearlyEl = document.getElementById('sim-yearly');
   const barAi = document.getElementById('sim-bar-ai');
   const barHuman = document.getElementById('sim-bar-human');
+  const barEl = document.querySelector('.simulator__bar');
 
   if (!inputEl || !rangeEl) return;
 
@@ -29,6 +30,10 @@
     barAi.querySelector('.simulator__bar-label').textContent = `AI自動化 ${aiPct}%`;
     barHuman.style.width = `${humanPct}%`;
     barHuman.querySelector('.simulator__bar-label').textContent = `エンジニア対応 ${humanPct}%`;
+    // スクリーンリーダー向けにバー全体のaria-labelを動的に更新
+    if (barEl) {
+      barEl.setAttribute('aria-label', `業務割合の内訳：AI自動化 ${aiPct}%、エンジニア対応 ${humanPct}%`);
+    }
   };
 
   inputEl.addEventListener('input', (e) => {

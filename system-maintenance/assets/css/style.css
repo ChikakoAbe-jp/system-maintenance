@@ -9,6 +9,8 @@
   --color-cyan-dark: #0088B0;
   --color-amber: #F59E0B;
   --color-amber-dark: #D97706;
+  /* Note: white-on-amber is brand-mandated (plan approved by user).
+     Contrast is ~2.14:1 which fails WCAG AA 4.5:1 — accepted as design decision. */
   --color-red-accent: #E63946;
   --color-white: #FFFFFF;
   --color-gray-50: #F5F7FA;
@@ -153,8 +155,7 @@ h3 { font-size: 24px; }
 
 .btn--primary {
   background-color: var(--color-amber);
-  /* アンバー(#F59E0B)背景に白文字はコントラスト比約2.1:1でWCAG AA不合格のため navy に変更 */
-  color: var(--color-navy);
+  color: var(--color-white);
 }
 .btn--primary:hover { background-color: var(--color-amber-dark); }
 
@@ -625,11 +626,14 @@ body {
   .simulator__bar-ai .simulator__bar-label,
   .simulator__bar-human .simulator__bar-label {
     clip-path: inset(100%);
-    white-space: nowrap;
-    overflow: hidden;
+    clip: rect(0 0 0 0);
     position: absolute;
+    top: 0;
+    left: 0;
     width: 1px;
     height: 1px;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 
@@ -848,8 +852,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   background-color: var(--color-amber);
-  /* アンバー背景に navy でコントラスト比確保 */
-  color: var(--color-navy);
+  color: var(--color-white);
   padding: 4px 16px;
   border-radius: 999px;
   font-size: 12px;
@@ -1156,8 +1159,7 @@ body {
 }
 .faq-item__marker--a {
   background-color: var(--color-amber);
-  /* アンバー背景に navy 文字でコントラスト比を確保 */
-  color: var(--color-navy);
+  color: var(--color-white);
 }
 .faq-item__answer {
   display: flex;
@@ -1438,8 +1440,7 @@ body {
   height: 60px;
   border-radius: 50%;
   background-color: var(--color-amber);
-  /* アンバー背景に navy でコントラスト比確保 */
-  color: var(--color-navy);
+  color: var(--color-white);
   box-shadow: var(--shadow-elevated);
   display: flex;
   align-items: center;
