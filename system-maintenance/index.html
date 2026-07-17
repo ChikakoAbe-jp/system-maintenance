@@ -231,9 +231,13 @@
           <span class="simulator__result-value" id="sim-yearly">336<span class="simulator__result-unit">万円</span></span>
         </div>
         <div class="simulator__breakdown">
-          <div class="simulator__bar">
-            <span class="simulator__bar-ai" id="sim-bar-ai" style="width: 35%">AI自動化 35%</span>
-            <span class="simulator__bar-human" id="sim-bar-human" style="width: 65%">エンジニア対応 65%</span>
+          <div class="simulator__bar" aria-label="業務割合の内訳">
+            <span class="simulator__bar-ai" id="sim-bar-ai" style="width: 35%" aria-hidden="true">
+              <span class="simulator__bar-label">AI自動化 35%</span>
+            </span>
+            <span class="simulator__bar-human" id="sim-bar-human" style="width: 65%" aria-hidden="true">
+              <span class="simulator__bar-label">エンジニア対応 65%</span>
+            </span>
           </div>
           <p class="simulator__breakdown-note">AI自動化可能な業務と、エンジニアが判断する業務の割合（参考値）</p>
         </div>

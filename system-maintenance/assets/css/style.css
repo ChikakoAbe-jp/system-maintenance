@@ -153,7 +153,8 @@ h3 { font-size: 24px; }
 
 .btn--primary {
   background-color: var(--color-amber);
-  color: var(--color-white);
+  /* アンバー(#F59E0B)背景に白文字はコントラスト比約2.1:1でWCAG AA不合格のため navy に変更 */
+  color: var(--color-navy);
 }
 .btn--primary:hover { background-color: var(--color-amber-dark); }
 
@@ -182,6 +183,17 @@ h3 { font-size: 24px; }
   font-size: 14px;
 }
 
+/* スクリーンリーダー専用テキスト（視覚的に非表示、SRには読まれる） */
+.visually-hidden {
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 /* Fade-in animation */
 .fade-in {
   opacity: 0;
@@ -196,8 +208,15 @@ h3 { font-size: 24px; }
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .fade-in, .btn { transition: none; }
+  /* フェードイン・ボタン・カルーセル・シミュレーターバーのアニメーションを無効化 */
+  .fade-in,
+  .btn,
+  .carousel__track,
+  .simulator__bar-ai,
+  .simulator__bar-human { transition: none; }
   * { animation: none !important; }
+  /* フェードイン要素を即時表示（JSのオブザーバーが動く前でも見える状態に） */
+  .fade-in { opacity: 1; transform: none; }
 }
 
 /* ============================================
@@ -520,8 +539,10 @@ body {
   text-align: right;
 }
 .simulator__input-row input:focus {
-  outline: none;
   border-color: var(--color-cyan);
+}
+.simulator__input-row input:focus:not(:focus-visible) {
+  outline: none;
 }
 .simulator__unit {
   font-size: 16px;
@@ -600,9 +621,16 @@ body {
 @media (max-width: 768px) {
   /* シミュレーター結果の数値をSPで縮小 */
   .simulator__result-value { font-size: 28px; }
-  /* バー内ラベルが狭い幅でつぶれないよう非表示 */
-  .simulator__bar-ai,
-  .simulator__bar-human { font-size: 0; }
+  /* バー内ラベルが狭い幅でつぶれないよう視覚的に非表示（aria-hiddenでSR対応済み） */
+  .simulator__bar-ai .simulator__bar-label,
+  .simulator__bar-human .simulator__bar-label {
+    clip-path: inset(100%);
+    white-space: nowrap;
+    overflow: hidden;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+  }
 }
 
 /* ============================================
@@ -820,7 +848,8 @@ body {
   left: 50%;
   transform: translateX(-50%);
   background-color: var(--color-amber);
-  color: var(--color-white);
+  /* アンバー背景に navy でコントラスト比確保 */
+  color: var(--color-navy);
   padding: 4px 16px;
   border-radius: 999px;
   font-size: 12px;
@@ -1127,6 +1156,8 @@ body {
 }
 .faq-item__marker--a {
   background-color: var(--color-amber);
+  /* アンバー背景に navy 文字でコントラスト比を確保 */
+  color: var(--color-navy);
 }
 .faq-item__answer {
   display: flex;
@@ -1279,8 +1310,14 @@ body {
 .contact-form input:focus,
 .contact-form select:focus,
 .contact-form textarea:focus {
-  outline: none;
+  /* キーボードフォーカス時はブラウザのアウトラインを消さずボーダーで視覚化 */
   border-color: var(--color-cyan);
+}
+.contact-form input:focus:not(:focus-visible),
+.contact-form select:focus:not(:focus-visible),
+.contact-form textarea:focus:not(:focus-visible) {
+  /* マウスクリック時のみアウトライン非表示 */
+  outline: none;
 }
 .contact-form textarea {
   resize: vertical;
@@ -1401,7 +1438,8 @@ body {
   height: 60px;
   border-radius: 50%;
   background-color: var(--color-amber);
-  color: var(--color-white);
+  /* アンバー背景に navy でコントラスト比確保 */
+  color: var(--color-navy);
   box-shadow: var(--shadow-elevated);
   display: flex;
   align-items: center;

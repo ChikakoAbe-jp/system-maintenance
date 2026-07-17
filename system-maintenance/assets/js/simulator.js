@@ -25,9 +25,10 @@
     const aiPct = Math.round(AI_RATIO * 100);
     const humanPct = 100 - aiPct;
     barAi.style.width = `${aiPct}%`;
-    barAi.textContent = `AI自動化 ${aiPct}%`;
+    // ラベルはネストされた span に設定（バー自体は aria-hidden のため）
+    barAi.querySelector('.simulator__bar-label').textContent = `AI自動化 ${aiPct}%`;
     barHuman.style.width = `${humanPct}%`;
-    barHuman.textContent = `エンジニア対応 ${humanPct}%`;
+    barHuman.querySelector('.simulator__bar-label').textContent = `エンジニア対応 ${humanPct}%`;
   };
 
   inputEl.addEventListener('input', (e) => {

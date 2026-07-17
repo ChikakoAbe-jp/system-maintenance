@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // カウントアップ
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const counters = document.querySelectorAll('[data-count]');
   const countObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -33,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = parseFloat(el.dataset.count);
       const decimals = parseInt(el.dataset.decimals || '0', 10);
       const suffix = el.dataset.suffix || '';
+      // reduced-motion 設定時はアニメなしで即時最終値を表示
+      if (prefersReducedMotion) {
+        el.textContent = target.toFixed(decimals) + suffix;
+        countObserver.unobserve(el);
+        return;
+      }
       const duration = 1400;
       const start = performance.now();
       const step = (now) => {
