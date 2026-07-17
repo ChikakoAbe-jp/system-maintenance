@@ -63,6 +63,7 @@ body {
   color: var(--color-gray-800);
   background-color: var(--color-white);
   -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
 }
 
 img, svg {
@@ -595,6 +596,13 @@ body {
 
 @media (max-width: 900px) {
   .simulator__grid { grid-template-columns: 1fr; padding: 24px; }
+}
+@media (max-width: 768px) {
+  /* シミュレーター結果の数値をSPで縮小 */
+  .simulator__result-value { font-size: 28px; }
+  /* バー内ラベルが狭い幅でつぶれないよう非表示 */
+  .simulator__bar-ai,
+  .simulator__bar-human { font-size: 0; }
 }
 
 /* ============================================
@@ -1171,6 +1179,7 @@ body {
 .company-card__list dd {
   color: var(--color-gray-800);
   line-height: 1.7;
+  overflow-wrap: break-word;
 }
 .company__cta {
   text-align: center;
