@@ -1131,3 +1131,53 @@ body {
   font-size: 15px;
   padding-top: 4px;
 }
+
+/* ============================================
+   Company
+   ============================================ */
+.company__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.company-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+}
+.company-card__title {
+  font-size: 20px;
+  color: var(--color-navy);
+  margin-bottom: 4px;
+}
+.company-card__subtitle {
+  font-size: 13px;
+  color: var(--color-cyan);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.company-card__list {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  row-gap: 12px;
+  column-gap: 16px;
+  font-size: 14px;
+}
+.company-card__list dt {
+  color: var(--color-gray-500);
+  font-weight: 500;
+}
+.company-card__list dd {
+  color: var(--color-gray-800);
+  line-height: 1.7;
+}
+.company__cta {
+  text-align: center;
+  margin-top: 40px;
+}
+
+@media (max-width: 900px) {
+  .company__grid { grid-template-columns: 1fr; }
+  .company-card__list { grid-template-columns: 80px 1fr; }
+}
