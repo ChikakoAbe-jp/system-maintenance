@@ -28,8 +28,8 @@ if (!empty($_POST['_hp'])) {
     exit('Bad Request');
 }
 
-// 必須項目チェック
-$required = ['type', 'name', 'kana', 'email', 'tel', 'message', 'consent'];
+// 必須項目チェック（種別 service[] は配列のため別途検証）
+$required = ['name', 'kana', 'email', 'tel', 'message', 'consent'];
 foreach ($required as $field) {
     if (empty($_POST[$field])) {
         http_response_code(400);
@@ -39,7 +39,6 @@ foreach ($required as $field) {
 
 // サニタイズ
 $sanitize = fn($v) => htmlspecialchars(trim($v ?? ''), ENT_QUOTES, 'UTF-8');
-$type = $sanitize($_POST['type']);
 $name = $sanitize($_POST['name']);
 $kana = $sanitize($_POST['kana']);
 $company = $sanitize($_POST['company'] ?? '');
@@ -60,19 +59,29 @@ $tel = str_replace(["\r", "\n", "\0"], '', $tel);
 // message: 改行は保持、\r と \0 のみ除去
 $message = str_replace(["\r", "\0"], '', $message);
 
-// 種別のマッピング
-$typeMap = [
-    'consult' => '無料相談を希望',
-    'quote' => 'お見積り',
-    'question' => '質問',
-    'other' => 'その他',
+// お問い合わせ種別（複数選択 service[]）。許可された値のみ受理
+$allowedServices = [
+    'システム開発', 'アプリ開発', 'DX支援', 'UI/UXデザイン', '運用保守',
+    'オフショア開発について', '採用について', '取材・登壇・営業について',
+    '業務提携・協業について', 'その他',
 ];
-// 許可された種別以外は拒否
-if (!array_key_exists($type, $typeMap)) {
-    http_response_code(400);
-    exit('不正なお問い合わせ種別です');
+$services = $_POST['service'] ?? [];
+if (!is_array($services)) {
+    $services = [$services];
 }
-$typeLabel = $typeMap[$type];
+// 文字列要素のみ受理（不正な多次元POSTで警告→ヘッダー送信失敗になるのを防ぐ）
+$services = array_filter($services, 'is_string');
+// 許可リストに含まれる値だけ残し、重複を除去
+$services = array_values(array_unique(array_filter(
+    $services,
+    fn($s) => in_array($s, $allowedServices, true)
+)));
+if (count($services) === 0) {
+    http_response_code(400);
+    exit('お問い合わせ種別が選択されていません');
+}
+// 表示用にサニタイズして連結
+$typeLabel = implode('、', array_map($sanitize, $services));
 
 // 本文組立
 $body = "以下のお問い合わせを受け付けました。\n\n";

@@ -1680,9 +1680,159 @@ body {
   border-color: var(--color-red-accent);
 }
 
+/* カスタム複数選択ドロップダウン（お問い合わせ種別） */
+.custom-select {
+  position: relative;
+}
+.custom-select__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  font-size: 16px;
+  font-family: inherit;
+  text-align: left;
+  border: 2px solid var(--color-gray-200);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-white);
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+.custom-select__trigger:hover,
+.custom-select.is-open .custom-select__trigger {
+  border-color: var(--color-cyan);
+}
+.custom-select__text {
+  color: var(--color-gray-500);
+  line-height: 1.5;
+}
+.custom-select__text.is-selected {
+  color: var(--color-navy);
+  font-weight: 500;
+}
+.custom-select__caret {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border: solid var(--color-gray-500);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  transition: transform var(--transition-fast);
+}
+.custom-select.is-open .custom-select__caret {
+  transform: rotate(-135deg);
+}
+.custom-select__panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  padding: 12px;
+  max-height: 320px;
+  overflow-y: auto;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-gray-200);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-card);
+}
+.custom-select__heading {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-gray-500);
+  padding: 4px 8px 8px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+.service-checkboxes {
+  display: flex;
+  flex-direction: column;
+}
+.service-checkboxes__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  font-size: 15px;
+  color: var(--color-navy);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.service-checkboxes__item:hover {
+  background-color: var(--color-gray-50);
+}
+/* チェックボックスは共通のinput幅指定（width:100%）をリセット */
+.service-checkboxes__item input[type="checkbox"] {
+  width: auto;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* 個人情報の取扱いについて */
+.contact-form__privacy {
+  padding: 16px;
+  background-color: var(--color-gray-50);
+  border-radius: var(--radius-sm);
+}
+.contact-form__privacy-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+}
+.contact-form__privacy-body {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-gray-800);
+}
+.contact-form__privacy-body a {
+  color: var(--color-cyan);
+  text-decoration: underline;
+}
+
+/* 確認ステップ */
+.contact-form__confirm-lead {
+  font-size: 15px;
+  color: var(--color-navy);
+  margin-bottom: 20px;
+}
+.contact-form__review {
+  margin-bottom: 24px;
+}
+.contact-form__review dt {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-gray-500);
+  margin-bottom: 4px;
+}
+.contact-form__review dd {
+  font-size: 16px;
+  color: var(--color-navy);
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--color-gray-200);
+  white-space: pre-wrap; /* お問い合わせ内容の改行を保持 */
+  word-break: break-word;
+}
+.contact-form__review dd:last-child {
+  border-bottom: none;
+}
+.contact-form__confirm-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.contact-form__confirm-actions .btn {
+  width: 100%;
+}
+
 @media (max-width: 768px) {
   .contact__box { padding: 24px; }
   .contact-form__row--two { grid-template-columns: 1fr; }
+  .contact-form__confirm-actions { grid-template-columns: 1fr; }
 }
 
 /* ============================================
