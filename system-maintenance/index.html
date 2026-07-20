@@ -139,9 +139,9 @@
         <img src="assets/img/logo-jvit-black.png" alt="JV-IT" width="120" height="32">
       </a>
       <nav class="header__nav" aria-label="メインナビゲーション">
-        <a href="#solution" class="header__link">サービス</a>
-        <a href="#pricing" class="header__link">料金</a>
         <a href="#cases" class="header__link">事例</a>
+        <a href="#services" class="header__link">サービス</a>
+        <a href="#pricing" class="header__link">料金</a>
         <a href="#faq" class="header__link">FAQ</a>
         <a href="#company" class="header__link">会社情報</a>
       </nav>
@@ -199,15 +199,33 @@
       </div>
     </section>
     <section id="trust" class="trust-band" aria-label="上場企業との業務提携">
-      <div class="container trust-band__inner">
-        <span class="trust-band__badge">TSE Growth 9235</span>
-        <p class="trust-band__text">
-          東証グロース上場「売れるネット広告社グループ（証券コード9235）」と戦略的業務提携。<strong>上場企業に選ばれる技術力と信頼性</strong>で、長期の保守運用をお任せいただけます。
-        </p>
-        <a class="trust-band__link" href="https://contents.xj-storage.jp/xcontents/AS04786/703c35fc/6003/450d/bd35/4101dc521b66/140120260515537812.pdf" target="_blank" rel="noopener">
-          ニュースリリースを見る
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
-        </a>
+      <div class="container">
+        <div class="trust-band__card">
+          <span class="trust-band__badge">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+            東証グロース上場企業と業務提携
+          </span>
+          <div class="trust-band__body">
+            <!--
+              業務提携先ロゴ：相手先の許諾が確認できたら、ロゴ画像を assets/img/partners/ に配置し、
+              下記 figure のコメントを解除してください（src のファイル名は実ファイルに合わせて変更）。
+              許諾未確認の間は、この figure をコメントアウトしたままにしておけばバッジ＋本文＋リンクのみ表示されます。
+            <figure class="trust-band__partner">
+              <img src="assets/img/partners/urerunet-group.png" alt="売れるネット広告社グループ ロゴ" width="160" height="48" loading="lazy">
+              <figcaption class="trust-band__partner-label">業務提携先</figcaption>
+            </figure>
+            -->
+            <p class="trust-band__text">
+              東証グロース市場 上場「売れるネット広告社グループ（証券コード：9235）」と戦略的業務提携。<strong>上場企業に選ばれる技術力と信頼性</strong>で、長期の保守運用をお任せください。
+            </p>
+          </div>
+          <div class="trust-band__footer">
+            <a class="trust-band__link" href="https://contents.xj-storage.jp/xcontents/AS04786/703c35fc/6003/450d/bd35/4101dc521b66/140120260515537812.pdf" target="_blank" rel="noopener">
+              <svg class="trust-band__link-tri" viewBox="0 0 10 10" width="9" height="9" aria-hidden="true"><polygon points="1,0 9,5 1,10" fill="currentColor"/></svg>
+              ニュースリリース（PDF）<span class="visually-hidden">（別ウィンドウで開きます）</span>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
     <section id="problems" class="problems section section--soft">
@@ -320,7 +338,7 @@
           </div>
           <p class="simulator__breakdown-note">AI自動化可能な業務と、エンジニアが判断する業務の割合（参考値）</p>
         </div>
-        <a href="#contact" class="btn btn--primary">この条件で無料診断を依頼する</a>
+        <a href="#contact" id="sim-cta" class="btn btn--primary">この条件で無料診断を依頼する</a>
       </div>
     </div>
   </div>
@@ -390,7 +408,6 @@
             <li class="clients__logo"><img src="assets/img/clients/client-07.png" alt="○○株式会社" width="180" height="84" loading="lazy"></li>
           -->
         </ul>
-        <p class="clients__note">※掲載は各社の許諾に基づきます。個別の実績詳細はお問い合わせください。</p>
       </div>
     </section>
     <section id="cases" class="cases section section--soft">
@@ -644,7 +661,6 @@
         </div>
       </li>
     </ul>
-    <p class="voices__note">※お客様のご要望により、業種と役職のみで匿名掲載しています。個別の事例詳細は個別相談にてご紹介可能です。</p>
   </div>
 </section>
     <section id="flow" class="flow section">
@@ -767,6 +783,7 @@
         <h3 class="company-card__title">株式会社JV-ITホールディングス</h3>
         <p class="company-card__subtitle">日本本社</p>
         <dl class="company-card__list">
+          <dt>所在地</dt><dd>東京都新宿区四谷3-11 光徳ビル201</dd>
           <dt>設立</dt><dd>2018年5月21日</dd>
           <dt>資本金</dt><dd>3,310万円</dd>
           <dt>売上高</dt><dd>4.12億円（2024年12月期）</dd>
@@ -779,8 +796,8 @@
         <p class="company-card__subtitle">ベトナム法人（ホーチミン）</p>
         <dl class="company-card__list">
           <dt>所在地</dt><dd>2nd Floor, Ework Building, 103A-105-107 Nguyen Thong St., Ward.9, Dist.3, HCMC, Vietnam</dd>
-          <dt>資本金</dt><dd>25,870 USD</dd>
           <dt>設立</dt><dd>2020年12月（前身 JV-IT., JSC は2006年5月29日設立）</dd>
+          <dt>資本金</dt><dd>25,870 USD</dd>
           <dt>電話番号</dt><dd>(+84)-28-6686-5546</dd>
         </dl>
       </article>
@@ -798,10 +815,6 @@
     </h2>
     <p class="contact__lead">お問い合わせいただいた内容には、1営業日以内にご返信いたします。まずはお気軽にご相談ください。</p>
     <div class="contact__box">
-      <div class="contact__trust">
-        <span class="contact__pmark" aria-label="Pマーク（プライバシーマーク）">P Mark</span>
-        <p>個人情報保護のため、Pマーク準拠の管理体制で対応いたします。詳細はプライバシーポリシーをご確認ください。</p>
-      </div>
       <form id="contact-form" class="contact-form" action="contact/submit.php" method="POST" novalidate>
         <input type="text" name="_hp" class="contact-form__hp" tabindex="-1" autocomplete="off">
         <input type="hidden" name="csrf_token" id="cf-csrf" value="">
@@ -846,7 +859,7 @@
         <div class="contact-form__row contact-form__consent">
           <label>
             <input type="checkbox" name="consent" required>
-            <a href="https://jv-it.jp/privacy" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します<span class="contact-form__req">必須</span>
+            <span class="contact-form__consent-text"><a href="https://jv-it.jp/privacy" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します<span class="contact-form__req">必須</span></span>
           </label>
         </div>
         <p id="contact-form-error" class="contact-form__error" role="alert" aria-live="assertive" hidden></p>
@@ -863,7 +876,7 @@
       <div class="footer__brand">
         <img class="footer__logo" src="assets/img/logo-jvit-white.png" alt="JV-IT">
         <p class="footer__company">株式会社JV-ITホールディングス</p>
-        <p class="footer__address">〒東京都</p>
+        <p class="footer__address">東京都新宿区四谷3-11 光徳ビル201</p>
       </div>
       <nav class="footer__nav" aria-label="フッターナビゲーション">
         <a href="https://jv-it.jp/" target="_blank" rel="noopener">企業情報</a>

@@ -7,7 +7,7 @@
   --color-navy-soft: #1A3A5C;
   --color-cyan: #00A6D6;
   --color-cyan-dark: #0088B0;
-  --color-amber: #B45309;
+  --color-amber: #C2410C;
   --color-amber-dark: #92400E;
   --color-amber-accent: #F59E0B; /* 補助用の明るいアンバー：白文字を載せない装飾のみ */
   /* CTA (amber+white) contrast: #B45309 on white with white text = 4.72:1 → WCAG AA 準拠 */
@@ -429,58 +429,120 @@ body {
    Trust Band (9235 提携)
    ============================================ */
 .trust-band {
-  background-color: var(--color-white);
-  border-top: 1px solid var(--color-gray-200);
-  border-bottom: 1px solid var(--color-gray-200);
-  padding: 24px 0;
+  padding: 32px 0;
+  background-color: var(--color-gray-50);
 }
-.trust-band__inner {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
+/* ヒーロー直下の提携ブロック：H1より控えめだが、独立したカードとして視覚的な重みを持たせる */
+.trust-band__card {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 22px 28px 18px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+/* 左端の縦アクセント（ネイビー→シアン）で信頼感と重みを付与 */
+.trust-band__card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--color-navy), var(--color-cyan));
 }
 .trust-band__badge {
-  flex-shrink: 0;
-  padding: 8px 14px;
-  border: 2px solid var(--color-navy);
-  border-radius: 6px;
-  color: var(--color-navy);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 15px;
+  background-color: var(--color-navy);
+  color: var(--color-white);
+  border-radius: 999px;
   font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  background-color: var(--color-white);
+  letter-spacing: 0.02em;
+}
+.trust-band__badge svg {
+  flex-shrink: 0;
+}
+.trust-band__body {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+/* 業務提携先ロゴ枠（許諾確認後にHTML側のコメントを解除して使用） */
+.trust-band__partner {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding-right: 24px;
+  border-right: 1px solid var(--color-gray-200);
+}
+.trust-band__partner img {
+  max-height: 48px;
+  width: auto;
+}
+.trust-band__partner-label {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--color-gray-500);
 }
 .trust-band__text {
   flex: 1;
   min-width: 260px;
+  margin: 0;
   font-size: 15px;
-  line-height: 1.7;
+  line-height: 1.8;
   color: var(--color-gray-800);
 }
 .trust-band__text strong {
   color: var(--color-navy);
   font-weight: 700;
 }
+/* リンクは信頼の裏付け用。末尾に控えめ配置し、主CTAとは差別化 */
+.trust-band__footer {
+  margin-top: 14px;
+  text-align: right;
+}
 .trust-band__link {
-  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   color: var(--color-cyan-dark);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+.trust-band__link-tri {
+  flex-shrink: 0;
 }
 .trust-band__link:hover {
   color: var(--color-navy);
 }
 
 @media (max-width: 768px) {
-  .trust-band__inner { justify-content: flex-start; }
-  .trust-band__text { font-size: 14px; }
+  .trust-band { padding: 24px 0; }
+  .trust-band__card { padding: 20px 18px 16px; }
+  .trust-band__body { gap: 16px; }
+  .trust-band__partner {
+    width: 100%;
+    padding-right: 0;
+    padding-bottom: 14px;
+    border-right: none;
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+  .trust-band__text { font-size: 14px; min-width: 0; }
+  .trust-band__footer { text-align: left; }
 }
 
 /* ============================================
@@ -1419,28 +1481,6 @@ body {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
 }
-.contact__trust {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px 20px;
-  background-color: var(--color-gray-50);
-  border-radius: var(--radius-md);
-  margin-bottom: 32px;
-  font-size: 13px;
-  color: var(--color-gray-800);
-}
-.contact__pmark {
-  display: inline-block;
-  padding: 8px 12px;
-  background-color: var(--color-white);
-  border: 2px solid var(--color-navy);
-  border-radius: var(--radius-sm);
-  color: var(--color-navy);
-  font-weight: 700;
-  font-size: 12px;
-  flex-shrink: 0;
-}
 .contact-form__row {
   margin-bottom: 20px;
 }
@@ -1509,8 +1549,18 @@ body {
 }
 .contact-form__consent label {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
+}
+/* チェックボックスは共通のinput幅指定（width:100%）をリセットして本来のサイズに */
+.contact-form__consent input[type="checkbox"] {
+  width: auto;
+  padding: 0;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.contact-form__consent-text {
+  line-height: 1.6;
 }
 .contact-form__consent a {
   color: var(--color-cyan);

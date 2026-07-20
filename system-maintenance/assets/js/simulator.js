@@ -45,5 +45,22 @@
     update(e.target.value);
   });
 
+  // 「この条件で無料診断を依頼する」→ 現在の試算値をお問い合わせ内容に自動記載
+  const ctaEl = document.getElementById('sim-cta');
+  if (ctaEl) {
+    ctaEl.addEventListener('click', () => {
+      const current = clamp(Number(inputEl.value) || 0, 10, 300);
+      const monthly = current * REDUCTION_RATE;
+      const yearly = monthly * 12;
+      if (window.lpSetAutofill) {
+        window.lpSetAutofill([
+          `現在の月額保守費：${format(current)}万円 / 月`,
+          `想定 月額削減：${format(monthly)}万円 / 月`,
+          `想定 年間削減：${format(yearly)}万円 / 年`,
+        ]);
+      }
+    });
+  }
+
   update(inputEl.value);
 })();

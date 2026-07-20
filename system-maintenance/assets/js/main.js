@@ -1,3 +1,17 @@
+// お問い合わせ内容への自動入力ヘルパー（シミュレーター・料金プランから共用）
+// ※main.jsはdefer先頭のため、後続のsimulator.jsが読み込まれる前にこの関数が定義される
+window.lpSetAutofill = function (lines) {
+  const ta = document.getElementById('cf-message');
+  if (!ta) return;
+  const START = '【自動入力ここから】';
+  const END = '【自動入力ここまで】';
+  const block = `${START}\n${lines.join('\n')}\n${END}\n`;
+  // 既存の自動入力ブロックがあれば置き換え（重複防止）。ユーザー入力分は残す
+  const re = /【自動入力ここから】[\s\S]*?【自動入力ここまで】\n*/;
+  const rest = ta.value.replace(re, '').replace(/^\s+/, '');
+  ta.value = block + (rest ? `\n${rest}` : '');
+};
+
 // フェードイン (IntersectionObserver)
 document.addEventListener('DOMContentLoaded', () => {
   const fadeElements = document.querySelectorAll('.fade-in');
@@ -117,9 +131,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const setOpen = (open) => {
       fab.classList.toggle('floating-cta--open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'お問い合わせメニューを閉じる' : 'お問い合わせメニューを開く');
       menu.hidden = !open;
     };
+
+    // 初期表示は開いた状態。画面1つ分ほどスクロールしたら一度だけ自動で閉じる
+    setOpen(true);
+    let autoCollapseDone = false;
+    // ファーストビューを読み終える程度スクロールしたら閉じる（早すぎ防止）
+    const collapseThreshold = Math.max(500, window.innerHeight * 0.9);
+    const onFirstScroll = () => {
+      if (autoCollapseDone) return;
+      if (window.scrollY > collapseThreshold) {
+        autoCollapseDone = true;
+        setOpen(false);
+        window.removeEventListener('scroll', onFirstScroll);
+      }
+    };
+    window.addEventListener('scroll', onFirstScroll, { passive: true });
+
     toggle.addEventListener('click', () => {
+      // ユーザーが手動操作したら自動クローズは無効化
+      autoCollapseDone = true;
+      window.removeEventListener('scroll', onFirstScroll);
       const isOpen = fab.classList.contains('floating-cta--open');
       setOpen(!isOpen);
     });
@@ -136,4 +170,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // 項目クリックで閉じる
     menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
   }
+
+  // 料金プランの「相談する」→ 選択プランをお問い合わせ内容に自動記載
+  document.querySelectorAll('.plan-card__btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.plan-card');
+      if (!card) return;
+      const name = (card.querySelector('.plan-card__badge')?.textContent || '').trim();
+      const priceNum = (card.querySelector('.plan-card__num')?.textContent || '').trim();
+      const price = priceNum ? `（${priceNum}万円/月）` : '';
+      if (name && window.lpSetAutofill) {
+        window.lpSetAutofill([`ご希望のプラン：${name}${price}`]);
+      }
+    });
+  });
 });
