@@ -386,7 +386,7 @@ body {
 .stats-bar__list {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   text-align: center;
 }
@@ -416,13 +416,9 @@ body {
 }
 
 @media (max-width: 900px) {
-  .stats-bar__list { grid-template-columns: repeat(3, 1fr); }
-  .stat__value { font-size: 36px; }
-  .stat--highlight { grid-column: span 3; }
-}
-@media (max-width: 560px) {
+  /* 4項目を2×2で均等配置（旧: 3列＋highlightのspanで余りが出て崩れていた） */
   .stats-bar__list { grid-template-columns: repeat(2, 1fr); }
-  .stat--highlight { grid-column: span 2; }
+  .stat__value { font-size: 36px; }
 }
 
 /* ============================================
@@ -543,6 +539,55 @@ body {
   }
   .trust-band__text { font-size: 14px; min-width: 0; }
   .trust-band__footer { text-align: left; }
+}
+
+/* ============================================
+   Spot band（スポット・部分依頼OKの訴求）
+   ============================================ */
+.spot-band {
+  padding: 24px 0;
+  background-color: rgba(0, 166, 214, 0.08); /* シアンの淡いティントで隣接セクションと差別化 */
+}
+.spot-band__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.spot-band__icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-navy);
+  color: var(--color-white);
+  border-radius: 50%;
+}
+.spot-band__icon svg { width: 24px; height: 24px; }
+.spot-band__text {
+  margin: 0;
+  font-size: 16px;
+  color: var(--color-gray-800);
+}
+.spot-band__text strong {
+  color: var(--color-navy);
+  font-weight: 700;
+}
+.spot-band__link {
+  flex-shrink: 0;
+  font-weight: 700;
+  color: var(--color-cyan-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.spot-band__link:hover { color: var(--color-navy); }
+
+@media (max-width: 560px) {
+  .spot-band__text { font-size: 15px; }
 }
 
 /* ============================================
@@ -918,7 +963,8 @@ body {
   transition: transform 400ms ease;
 }
 .case-card {
-  flex: 0 0 calc((100% - 48px) / 3);
+  /* 3枚表示＋次カードを少し見切れさせる（peek）ことでスクロール可能と伝える */
+  flex: 0 0 calc((100% - 96px) / 3);
   background-color: var(--color-white);
   border-radius: var(--radius-lg);
   overflow: hidden;
@@ -1024,14 +1070,19 @@ body {
   align-self: flex-start;
 }
 .case-card__link:hover { color: var(--color-navy); }
+/* 左右ボタンはカルーセル下に中央寄せで配置（カード内テキストへの被りを回避） */
+.carousel__controls {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
 .carousel__btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   width: 48px;
   height: 48px;
   background-color: var(--color-white);
   color: var(--color-navy);
+  border: 1px solid var(--color-gray-200);
   border-radius: 50%;
   box-shadow: var(--shadow-card);
   display: flex;
@@ -1043,26 +1094,50 @@ body {
 .carousel__btn:hover {
   background-color: var(--color-navy);
   color: var(--color-white);
-  transform: translateY(-50%) scale(1.05);
+  border-color: var(--color-navy);
+  transform: scale(1.05);
 }
 .carousel__btn:focus-visible {
   outline: 2px solid var(--color-cyan);
   outline-offset: 3px;
 }
-.carousel__btn--prev { left: -20px; }
-.carousel__btn--next { right: -20px; }
 .carousel__btn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
+/* ページネーションドット（スクロール位置の可視化） */
+.carousel__dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.carousel__dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--color-gray-200);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+.carousel__dot:hover { background-color: var(--color-cyan); }
+.carousel__dot.is-active {
+  background-color: var(--color-navy);
+  transform: scale(1.25);
+}
+.carousel__dot:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+}
 
 @media (max-width: 900px) {
-  .case-card { flex: 0 0 calc((100% - 24px) / 2); }
-  .carousel__btn--prev { left: 4px; }
-  .carousel__btn--next { right: 4px; }
+  /* 2枚表示＋peek */
+  .case-card { flex: 0 0 calc((100% - 72px) / 2); }
 }
 @media (max-width: 560px) {
-  .case-card { flex: 0 0 100%; }
+  /* 1枚表示＋次カードを見切れさせる */
+  .case-card { flex: 0 0 calc(100% - 56px); }
 }
 
 /* ============================================
@@ -1412,6 +1487,21 @@ body {
 .faq-item__answer p {
   font-size: 15px;
   padding-top: 4px;
+}
+/* 回答内リンクはリンクと分かるよう色＋下線で明示 */
+.faq-item__answer a {
+  color: var(--color-cyan-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.faq-item__answer a:hover {
+  color: var(--color-navy);
+}
+.faq-item__answer a:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* ============================================

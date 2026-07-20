@@ -74,9 +74,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const carouselUpdaters = [];
 
   carousels.forEach(carousel => {
+    const viewport = carousel.querySelector('.carousel__viewport');
     const track = carousel.querySelector('.carousel__track');
     const prev = carousel.querySelector('[data-carousel-prev]');
     const next = carousel.querySelector('[data-carousel-next]');
+    const dotsWrap = carousel.querySelector('[data-carousel-dots]');
     const items = Array.from(track.children);
     let index = 0;
 
@@ -87,20 +89,49 @@ document.addEventListener('DOMContentLoaded', () => {
       return 3;
     };
 
-    const update = () => {
-      const visible = getVisibleCount();
-      const maxIndex = Math.max(0, items.length - visible);
-      index = Math.min(index, maxIndex);
-      const card = items[0];
-      const gap = 24;
-      const step = card.offsetWidth + gap;
-      track.style.transform = `translateX(${-index * step}px)`;
-      prev.disabled = index === 0;
-      next.disabled = index >= maxIndex;
+    const getMaxIndex = () => Math.max(0, items.length - getVisibleCount());
+
+    // スクロール位置ごとのドットを生成（数が変わったときのみ作り直す）
+    const renderDots = () => {
+      if (!dotsWrap) return;
+      const count = getMaxIndex() + 1;
+      if (dotsWrap.children.length === count) return;
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel__dot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', `${i + 1}番目の位置から事例を表示`);
+        dot.addEventListener('click', () => { index = i; update(); });
+        dotsWrap.appendChild(dot);
+      }
     };
 
+    const update = () => {
+      const maxIndex = getMaxIndex();
+      index = Math.min(index, maxIndex);
+      const gap = 24;
+      const step = items[0].offsetWidth + gap;
+      // 末尾で余白が出ないよう、実スクロール幅でクランプ（peek対応）
+      const maxTranslate = Math.max(0, track.scrollWidth - viewport.clientWidth);
+      const translate = Math.min(index * step, maxTranslate);
+      track.style.transform = `translateX(${-translate}px)`;
+      prev.disabled = index === 0;
+      next.disabled = index >= maxIndex;
+      if (dotsWrap) {
+        Array.from(dotsWrap.children).forEach((d, i) => {
+          const active = i === index;
+          d.classList.toggle('is-active', active);
+          d.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+      }
+    };
+
+    const refresh = () => { renderDots(); update(); };
+
     prev.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
-    next.addEventListener('click', () => { index = index + 1; update(); });
+    next.addEventListener('click', () => { index = Math.min(getMaxIndex(), index + 1); update(); });
 
     // キーボード操作
     carousel.addEventListener('keydown', (e) => {
@@ -108,8 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'ArrowRight') { next.click(); }
     });
 
-    carouselUpdaters.push(update);
-    update();
+    carouselUpdaters.push(refresh);
+    refresh();
   });
 
   // リサイズはデバウンスで一括処理（イベントリークを防止）

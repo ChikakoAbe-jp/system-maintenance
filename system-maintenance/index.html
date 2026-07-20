@@ -81,8 +81,18 @@
       },
       {
         "@type": "Question",
+        "name": "「引き継ぎだけ」「障害対応だけ」など、一部だけの依頼は可能ですか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "可能です。運用保守の全面委託だけでなく、「引き継ぎのみ」「障害発生時のスポット対応のみ」「特定機能の改修のみ」など、必要な範囲だけのご依頼も承ります。まずは小さく始め、状況に応じて範囲を広げることもできます。" }
+      },
+      {
+        "@type": "Question",
+        "name": "どこまで対応してもらえますか？",
+        "acceptedAnswer": { "@type": "Answer", "text": "現行システムの解析・調査から、日次運用・監視、障害対応、機能改修・追加開発、サーバー／インフラ運用、セキュリティ・パフォーマンス最適化まで一貫して対応します。" }
+      },
+      {
+        "@type": "Question",
         "name": "現在他社と契約中でも相談できますか？",
-        "acceptedAnswer": { "@type": "Answer", "text": "もちろん可能です。相談時点で他社契約の解約義務はありません。秘密保持契約のもと厳重に管理いたします。" }
+        "acceptedAnswer": { "@type": "Answer", "text": "もちろん可能です。相談時点で他社契約の解約義務はありません。秘密保持契約のもと厳重に管理いたします。また、既存ベンダーや社内担当者と並行しての依頼・作業も可能です。段階的な移行にも対応します。" }
       },
       {
         "@type": "Question",
@@ -159,7 +169,7 @@
         <div class="hero__content fade-in">
           <p class="hero__eyebrow">AI × オフショア20年ノウハウ</p>
           <h1 class="hero__title">保守を、AIと<br>20年のノウハウで。</h1>
-          <p class="hero__lead">Anthropic認定エンジニア100名 × 日越87名体制のハイブリッド保守で、システム運用を刷新します。ブラックボックス化したシステムも、最短1ヶ月で引き継ぎ可能です。</p>
+          <p class="hero__lead">Anthropic認定エンジニア100名によるAI活用と、ベトナム拠点20年の運用ノウハウ。この二つでシステム運用を刷新し、ブラックボックス化したシステムも最短1ヶ月で引き継ぎます。</p>
           <div class="hero__ctas">
             <a href="#contact" class="btn btn--primary">無料で相談する</a>
             <a href="#simulator" class="btn btn--on-dark">削減シミュレーターを試す</a>
@@ -186,10 +196,6 @@
           <li class="stat fade-in">
             <span class="stat__value"><span data-count="20">20</span>年</span>
             <span class="stat__label">オフショア<br>保守運用実績</span>
-          </li>
-          <li class="stat fade-in">
-            <span class="stat__value"><span data-count="87">87</span>名</span>
-            <span class="stat__label">日越合計<br>開発・保守体制</span>
           </li>
           <li class="stat fade-in">
             <span class="stat__value"><span data-count="99.99" data-decimals="2">99.99</span>%</span>
@@ -512,16 +518,28 @@
           </li>
         </ul>
       </div>
-      <button class="carousel__btn carousel__btn--prev" data-carousel-prev aria-label="前の事例">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
-      </button>
-      <button class="carousel__btn carousel__btn--next" data-carousel-next aria-label="次の事例">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </button>
+      <div class="carousel__controls">
+        <button class="carousel__btn carousel__btn--prev" data-carousel-prev aria-label="前の事例">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        </button>
+        <div class="carousel__dots" data-carousel-dots role="tablist" aria-label="事例の表示位置"></div>
+        <button class="carousel__btn carousel__btn--next" data-carousel-next aria-label="次の事例">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </button>
+      </div>
     </div>
     <p class="cases__note">※各事例の月額は当社実績値です。個別のシステム規模・要件により変動します。</p>
   </div>
 </section>
+    <section class="spot-band" aria-label="スポット・部分依頼のご案内">
+      <div class="container spot-band__inner">
+        <span class="spot-band__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+        </span>
+        <p class="spot-band__text"><strong>引き継ぎだけ・障害対応だけのスポット依頼もOK。</strong>まずは小さく始められます。</p>
+        <a href="#contact" class="spot-band__link">相談してみる<span aria-hidden="true"> →</span></a>
+      </div>
+    </section>
     <section id="services" class="services section">
   <div class="container">
     <h2 class="section-title">
@@ -715,9 +733,25 @@
       </li>
       <li>
         <details class="faq-item">
+          <summary class="faq-item__question"><span class="faq-item__marker">Q</span>「引き継ぎだけ」「障害対応だけ」など、一部だけの依頼は可能ですか？</summary>
+          <div class="faq-item__answer"><span class="faq-item__marker faq-item__marker--a">A</span>
+            <p>可能です。運用保守の全面委託だけでなく、「引き継ぎのみ」「障害発生時のスポット対応のみ」「特定機能の改修のみ」など、必要な範囲だけのご依頼も承ります。まずは小さく始め、状況に応じて範囲を広げることもできます。</p>
+          </div>
+        </details>
+      </li>
+      <li>
+        <details class="faq-item">
+          <summary class="faq-item__question"><span class="faq-item__marker">Q</span>どこまで対応してもらえますか？</summary>
+          <div class="faq-item__answer"><span class="faq-item__marker faq-item__marker--a">A</span>
+            <p>現行システムの解析・調査から、日次運用・監視、障害対応、機能改修・追加開発、サーバー／インフラ運用、セキュリティ・パフォーマンス最適化まで一貫して対応します。詳しくは<a href="#services">対応するサービス範囲</a>をご覧ください。</p>
+          </div>
+        </details>
+      </li>
+      <li>
+        <details class="faq-item">
           <summary class="faq-item__question"><span class="faq-item__marker">Q</span>現在他社と契約中でも相談できますか？</summary>
           <div class="faq-item__answer"><span class="faq-item__marker faq-item__marker--a">A</span>
-            <p>もちろん可能です。相談時点で他社契約の解約義務はありません。ご相談内容は秘密保持契約のもと厳重に管理いたします。</p>
+            <p>もちろん可能です。相談時点で他社契約の解約義務はありません。ご相談内容は秘密保持契約のもと厳重に管理いたします。また、既存ベンダーや社内担当者と並行しての依頼・作業も可能です。段階的な移行にも対応します。</p>
           </div>
         </details>
       </li>
