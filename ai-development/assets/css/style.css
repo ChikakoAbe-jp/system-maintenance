@@ -901,7 +901,191 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   13. モーション低減設定への配慮
+   13. 2つの開発スタイル併記（ライト） Task 7
+   -------------------------------------------------------------------------- */
+.styles__head {
+  max-inline-size: 720px;
+  margin-inline: auto;
+  margin-block-end: var(--space-9);
+  text-align: center;
+}
+
+.styles__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.styles__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  align-items: stretch;
+  margin-block-end: var(--space-8);
+}
+
+.style-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: var(--radius);
+}
+
+/* 主役：AIネイティブ開発。グラデーション枠+強い影+バッジで最優先の視覚重みを持たせる（DOM順で先頭固定） */
+.style-card--primary {
+  background: var(--color-bg);
+  border: 2px solid transparent;
+  background-image: linear-gradient(var(--color-bg), var(--color-bg)),
+    var(--grad-ai);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: var(--shadow);
+  transform: scale(1.02);
+}
+
+/* 従：AI駆動開発。ソフト面に載せ、枠線のみで控えめに見せる */
+.style-card--secondary {
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+}
+
+.style-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.style-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 48px;
+  block-size: 48px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+}
+
+.style-card--primary .style-card__icon {
+  color: #FFFFFF;
+  background: var(--grad-ai);
+}
+
+.style-card--secondary .style-card__icon {
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+.style-card__badge {
+  padding: 4px var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--grad-ai);
+  color: #FFFFFF;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+.style-card__title {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.style-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.style-card__row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.style-card__row dt {
+  color: var(--color-accent);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+.style-card__row dd {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-weight: 500;
+}
+
+/* 活用ツール帯 */
+.styles__tools {
+  padding-block-start: var(--space-6);
+  border-block-start: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.styles__tools-label {
+  margin-block-end: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.styles__tools-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.styles__tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  color: var(--color-text);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.styles__tool-icon {
+  display: inline-flex;
+  color: var(--color-accent);
+}
+
+/* 自社独自フレームワークは枠線をブランドグラデーションにして差別化 */
+.styles__tool--own {
+  background: var(--color-bg);
+  border: 1px solid transparent;
+  background-image: linear-gradient(var(--color-bg-soft), var(--color-bg-soft)),
+    var(--grad-ai);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  font-weight: 700;
+}
+
+.styles__tool--own .styles__tool-icon {
+  color: var(--color-accent-2);
+}
+
+/* タブレット以下：2カラム→1カラム。主役（AIネイティブ）を先頭に固定 */
+@media (max-width: 768px) {
+  .styles__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .style-card--primary {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   14. モーション低減設定への配慮
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
