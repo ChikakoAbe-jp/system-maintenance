@@ -1906,7 +1906,159 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   21. モーション低減設定への配慮
+   21. 会社情報 Task 15
+   -------------------------------------------------------------------------- */
+.company__head {
+  max-inline-size: 640px;
+  margin-inline: auto;
+  margin-block-end: var(--space-9);
+  text-align: center;
+}
+
+.company__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.company__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+.company-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.company-card__title {
+  margin: 0;
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.company-card__subtitle {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+.company-card__list {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: var(--space-1) var(--space-2);
+  margin-block-start: var(--space-2);
+}
+
+.company-card__list dt {
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+.company-card__list dd {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--fs-sm);
+}
+
+/* タブレット以下：2カラム法人カード → 1カラム */
+@media (max-width: 768px) {
+  .company__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .company-card__list {
+    grid-template-columns: 80px 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   22. フッター Task 15
+   -------------------------------------------------------------------------- */
+.footer {
+  padding-block: var(--space-8);
+  background: var(--color-bg-dark);
+  color: var(--color-text-invert);
+}
+
+.footer__grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block-end: var(--space-6);
+  border-block-end: 1px solid var(--color-border-dark);
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.footer__logo {
+  block-size: 32px;
+  inline-size: auto;
+}
+
+.footer__company {
+  margin: 0;
+  margin-block-start: var(--space-2);
+  color: var(--color-text-invert);
+  font-weight: 700;
+}
+
+.footer__address {
+  margin: 0;
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-sm);
+}
+
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.footer__nav a {
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+}
+
+.footer__nav a:hover {
+  color: var(--color-text-invert);
+  text-decoration: underline;
+}
+
+.footer__copy {
+  margin: 0;
+  margin-block-start: var(--space-4);
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-sm);
+  text-align: center;
+}
+
+/* モバイル：フッター横並び → 縦積み */
+@media (max-width: 560px) {
+  .footer__grid {
+    flex-direction: column;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   23. モーション低減設定への配慮
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
