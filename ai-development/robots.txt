@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jv-it.jp/lp/ai-development/sitemap.xml
