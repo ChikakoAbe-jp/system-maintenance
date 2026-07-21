@@ -1,0 +1,48 @@
+name: Deploy LP to GitHub Pages
+
+# main への push、または手動実行で system-maintenance/ フォルダを Pages として公開する
+on:
+  push:
+    branches: [main]
+    paths:
+      - "system-maintenance/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+# GitHub Pages へのデプロイに必要な権限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時実行は最新のみ（古いデプロイはキャンセル）
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # ソースを取得
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Pages 用の設定を読み込み
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # LP 本体（サブフォルダ）だけを成果物としてアップロード
+      # → https://<user>.github.io/system-maintenance/ のルートで公開される
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: system-maintenance
+
+      # Pages へデプロイ
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
