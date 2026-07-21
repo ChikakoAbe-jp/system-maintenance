@@ -636,6 +636,12 @@ body {
   text-align: center;
   color: var(--color-gray-800);
 }
+.strengths__lead {
+  max-width: 880px;
+  margin: -24px auto 48px;
+  text-align: center;
+  color: var(--color-gray-800);
+}
 .solution__steps {
   list-style: none;
   display: grid;
