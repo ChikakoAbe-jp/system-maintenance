@@ -31,6 +31,9 @@
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 
+  <!-- JS無効時のフォールバック：fade-in要素を表示状態にする -->
+  <noscript><style>.fade-in{opacity:1 !important;transform:none !important}</style></noscript>
+
   <!-- Structured Data: Organization -->
   <script type="application/ld+json">
   {
@@ -135,7 +138,7 @@
   <header id="header" class="header">
     <div class="container header__inner">
       <a href="https://jv-it.jp/" class="header__logo" aria-label="JV-IT ホームページへ">
-        <img src="assets/img/logo-jvit-white.png" alt="JV-IT" class="header__logo-img">
+        <img src="assets/img/logo-jvit-white.png" alt="JV-IT" class="header__logo-img" width="2500" height="800">
       </a>
       <nav class="header__nav" aria-label="メインナビゲーション">
         <ul class="header__nav-list" role="list">
@@ -177,7 +180,7 @@
           <span class="stat__note">業界平均20%</span>
         </div>
         <div class="stat fade-in">
-          <span class="stat__value font-tech"><span data-count="50" data-suffix="%〜">50%〜</span></span>
+          <span class="stat__value font-tech"><span data-count="50" data-suffix="%以上">50%以上</span></span>
           <span class="stat__label">AI活用率</span>
         </div>
         <div class="stat fade-in">
@@ -899,7 +902,7 @@
     <div class="container">
       <div class="footer__grid">
         <div class="footer__brand">
-          <img class="footer__logo" src="assets/img/logo-jvit-white.png" alt="JV-IT" loading="lazy">
+          <img class="footer__logo" src="assets/img/logo-jvit-white.png" alt="JV-IT" width="2500" height="800" loading="lazy">
           <p class="footer__company">株式会社JV-ITホールディングス</p>
           <p class="footer__address">〒160-0004 東京都新宿区四谷3-11 光徳ビル201</p>
         </div>

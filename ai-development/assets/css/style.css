@@ -992,7 +992,7 @@ section[id] {
 .style-card__badge {
   padding: 4px var(--space-2);
   border-radius: var(--radius-full);
-  background: var(--grad-ai);
+  background: var(--color-accent);
   color: var(--color-on-accent);
   font-size: var(--fs-sm);
   font-weight: 700;
@@ -1674,15 +1674,15 @@ section[id] {
   font-weight: 500;
 }
 
-/* 認定バッジ：グラデーション地に白文字（トークンのvar(--color-text-invert)を使用） */
+/* 認定バッジ：単色地に白文字（コントラスト比確保のためvar(--color-on-accent)を使用） */
 .cert-card__badge {
   display: inline-flex;
   align-self: flex-start;
   margin: 0;
   padding: 4px var(--space-2);
   border-radius: var(--radius-full);
-  background: var(--grad-ai);
-  color: var(--color-text-invert);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
   font-size: var(--fs-sm);
   font-weight: 700;
 }
@@ -2050,7 +2050,7 @@ section[id] {
   margin-inline-start: var(--space-1);
   padding: 2px 6px;
   background: var(--color-cta);
-  color: var(--color-text-invert);
+  color: var(--color-on-accent);
   border-radius: var(--radius-sm);
   font-size: 11px;
   font-weight: 700;
