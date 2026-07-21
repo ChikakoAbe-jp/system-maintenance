@@ -1085,7 +1085,155 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   14. モーション低減設定への配慮
+   14. 開発体制（AIネイティブ・日本人PM直轄）（ライト） Task 8
+   -------------------------------------------------------------------------- */
+.team__head {
+  max-inline-size: 720px;
+  margin-inline: auto;
+  margin-block-end: var(--space-9);
+  text-align: center;
+}
+
+.team__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.team__lead {
+  margin-block-start: var(--space-3);
+  margin-block-end: 0;
+  color: var(--color-text-muted);
+}
+
+.team__diagram {
+  max-inline-size: 880px;
+  margin-inline: auto;
+}
+
+/* 上段：お客様 ⇄ 日本人PM（双方向の窓口関係） */
+.team__top-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.team__node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.team__node--client {
+  min-inline-size: 160px;
+}
+
+/* PM：全体統括の要としてグラデーション枠+影で最優先の視覚重みを持たせる */
+.team__node--pm {
+  min-inline-size: 220px;
+  border: 2px solid transparent;
+  background-image: linear-gradient(var(--color-bg), var(--color-bg)),
+    var(--grad-ai);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: var(--shadow);
+}
+
+.team__node-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-soft);
+  color: var(--color-accent);
+}
+
+.team__node--pm .team__node-icon {
+  background: var(--grad-ai);
+  color: var(--color-bg);
+}
+
+.team__node-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.team__node-desc {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+/* お客様⇄PMの双方向矢印 */
+.team__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-accent-2);
+}
+
+/* PM→各チームへの指揮系統（下矢印） */
+.team__trunk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-block: var(--space-3);
+  color: var(--color-accent-2);
+}
+
+/* 下段：上級エンジニア＋QC／CMチーム／インフラの3分岐 */
+.team__branches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.team__node--branch {
+  align-items: center;
+  block-size: 100%;
+  background: var(--color-bg-soft);
+}
+
+/* タブレット以下：3分岐を1カラムに */
+@media (max-width: 860px) {
+  .team__branches {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* スマホ：お客様⇄PMも縦積みにし、双方向矢印を縦向きへ回転 */
+@media (max-width: 640px) {
+  .team__top-row {
+    flex-direction: column;
+  }
+
+  .team__arrow--bidirectional {
+    transform: rotate(90deg);
+  }
+
+  .team__node--client,
+  .team__node--pm {
+    inline-size: 100%;
+    max-inline-size: 320px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   15. モーション低減設定への配慮
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
