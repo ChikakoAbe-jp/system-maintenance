@@ -1302,7 +1302,73 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   16. モーション低減設定への配慮
+   16. 取引先ロゴ帯（ライト） Task 10
+   -------------------------------------------------------------------------- */
+.clients__head {
+  max-inline-size: 640px;
+  margin-inline: auto;
+  margin-block-end: var(--space-6);
+  text-align: center;
+}
+
+.clients__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.clients__lead {
+  margin-block-start: var(--space-3);
+  margin-block-end: 0;
+  color: var(--color-text-muted);
+}
+
+.clients__logos {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-3);
+  align-items: center;
+  justify-items: center;
+}
+
+.clients__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 180px;
+  aspect-ratio: 15 / 7;
+  padding: var(--space-2);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.clients__logo img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  filter: grayscale(1) opacity(0.75);
+}
+
+/* タブレット：6枚 → 3列 */
+@media (max-width: 900px) {
+  .clients__logos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* モバイル：3列 → 2列 */
+@media (max-width: 560px) {
+  .clients__logos {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   17. モーション低減設定への配慮
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
