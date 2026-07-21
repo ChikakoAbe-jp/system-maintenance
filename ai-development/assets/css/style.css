@@ -1233,7 +1233,76 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   15. モーション低減設定への配慮
+   15. 選ばれる3つの理由（ライト） Task 9
+   -------------------------------------------------------------------------- */
+.reasons__head {
+  max-inline-size: 640px;
+  margin-inline: auto;
+  margin-block-end: var(--space-9);
+  text-align: center;
+}
+
+.reasons__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.reasons__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.reason-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-4);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+/* 大きな数値（PM直轄体制のみ数字ではなく英字ラベルだが、font-techで統一） */
+.reason-card__value {
+  margin: 0;
+  font-size: clamp(2.25rem, 1.8rem + 1.8vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-accent);
+}
+
+.reason-card__unit {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.reason-card__title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.reason-card__text {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+/* モバイル：3カード → 1カラム */
+@media (max-width: 720px) {
+  .reasons__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   16. モーション低減設定への配慮
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
