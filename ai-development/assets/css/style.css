@@ -641,7 +641,7 @@ section[id] {
 .problems__head {
   max-inline-size: 640px;
   margin-inline: auto;
-  margin-block-end: var(--space-6);
+  margin-block-end: var(--space-9);
   text-align: center;
 }
 
@@ -1208,8 +1208,8 @@ section[id] {
   background: var(--color-bg-soft);
 }
 
-/* タブレット以下：3分岐を1カラムに */
-@media (max-width: 860px) {
+/* タブレット以下：3分岐を1カラムに（他セクションと768pxで統一） */
+@media (max-width: 768px) {
   .team__branches {
     grid-template-columns: 1fr;
   }
@@ -1294,8 +1294,8 @@ section[id] {
   font-size: var(--fs-sm);
 }
 
-/* モバイル：3カード → 1カラム */
-@media (max-width: 720px) {
+/* タブレット以下：3カード → 1カラム（他セクションと768pxで統一） */
+@media (max-width: 768px) {
   .reasons__grid {
     grid-template-columns: 1fr;
   }
@@ -1307,7 +1307,7 @@ section[id] {
 .clients__head {
   max-inline-size: 640px;
   margin-inline: auto;
-  margin-block-end: var(--space-6);
+  margin-block-end: var(--space-9);
   text-align: center;
 }
 
@@ -1381,7 +1381,7 @@ section[id] {
   max-inline-size: 640px;
   margin-inline: auto;
   margin-block-start: var(--space-3);
-  margin-block-end: var(--space-6);
+  margin-block-end: var(--space-9);
   color: var(--color-text-muted);
   text-align: center;
 }
@@ -1430,12 +1430,14 @@ section[id] {
   border-radius: var(--radius-full);
 }
 
+/* CASE番号ラベル：白カード上ではシアンだとコントラスト不足(約2.4:1)のため
+   ライト面の他アクセントと同じインディゴ(約6.3:1)に統一 */
 .case-card__no {
   margin: 0;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--color-accent-2);
+  color: var(--color-accent);
 }
 
 .case-card__title {
@@ -2107,8 +2109,9 @@ section[id] {
   line-height: 1.6;
 }
 
+/* リンクは白フォーム面ではインディゴ（シアンはコントラスト不足のため） */
 .contact-form__consent a {
-  color: var(--color-accent-2);
+  color: var(--color-accent);
   text-decoration: underline;
 }
 
@@ -2263,7 +2266,7 @@ section[id] {
 }
 
 .contact-form__privacy-body a {
-  color: var(--color-accent-2);
+  color: var(--color-accent);
   text-decoration: underline;
 }
 
