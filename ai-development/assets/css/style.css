@@ -1604,7 +1604,139 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   18. モーション低減設定への配慮
+   18. Claude公式認定100名体制（ダーク） Task 12
+   -------------------------------------------------------------------------- */
+.certification__head {
+  max-inline-size: 640px;
+  margin-inline: auto;
+  margin-block-end: var(--space-9);
+  text-align: center;
+}
+
+.certification__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--color-text-invert);
+}
+
+.certification__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  margin-block-end: var(--space-6);
+}
+
+.cert-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  background: var(--color-bg-dark-2);
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius);
+}
+
+.cert-card__no {
+  margin: 0;
+  color: var(--color-accent-2);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+}
+
+.cert-card__title {
+  margin: 0;
+  color: var(--color-text-invert);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+}
+
+/* CCA-Fの正式名称は控えめな補足として折り返し表示 */
+.cert-card__title-sub {
+  display: block;
+  margin-block-start: 2px;
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+/* 認定バッジ：グラデーション地に白文字（トークンのvar(--color-text-invert)を使用） */
+.cert-card__badge {
+  display: inline-flex;
+  align-self: flex-start;
+  margin: 0;
+  padding: 4px var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--grad-ai);
+  color: var(--color-text-invert);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+}
+
+.cert-card__text {
+  margin: 0;
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-sm);
+}
+
+/* 価値3点 */
+.certification__values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+}
+
+.cert-value {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--color-bg-dark-2);
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius);
+}
+
+.cert-value__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 40px;
+  block-size: 40px;
+  flex-shrink: 0;
+  border-radius: var(--radius-full);
+  background: var(--grad-ai);
+  color: var(--color-text-invert);
+}
+
+.cert-value__title {
+  margin: 0;
+  color: var(--color-text-invert);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.cert-value__text {
+  margin: 0;
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-sm);
+}
+
+/* タブレット以下：2カラム認定カード → 1カラム */
+@media (max-width: 720px) {
+  .certification__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* モバイル：価値3点 3カラム → 1カラム */
+@media (max-width: 640px) {
+  .certification__values {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   19. モーション低減設定への配慮
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
