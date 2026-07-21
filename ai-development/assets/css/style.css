@@ -1510,7 +1510,7 @@ section[id] {
 }
 
 .case-card__ba dt:nth-of-type(2) {
-  background: var(--color-accent-2);
+  background: var(--color-accent);
 }
 
 .case-card__ba dt:nth-of-type(3) {
