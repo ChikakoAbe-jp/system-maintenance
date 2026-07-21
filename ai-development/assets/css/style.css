@@ -199,6 +199,17 @@ h4 {
   letter-spacing: 0.02em;
 }
 
+/* スクリーンリーダー専用テキスト（視覚的に非表示、SRには読まれる） */
+.visually-hidden {
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 /* フォーカスインジケータ（キーボード操作時のみ表示） */
 :focus-visible {
   outline: 3px solid var(--color-accent);
@@ -492,7 +503,140 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   10. モーション低減設定への配慮
+   10. 信頼帯：9235提携 Task 4
+   -------------------------------------------------------------------------- */
+.trust-band {
+  padding-block: clamp(32px, 5vw, 56px);
+}
+
+/* ヒーロー/スタッツ帯直下の提携ブロック：独立したカードとして視覚的な重みを持たせる */
+.trust-band__card {
+  position: relative;
+  max-inline-size: 880px;
+  margin-inline: auto;
+  padding: 22px 28px 20px;
+  background: var(--color-bg-dark-2);
+  border: 1px solid var(--color-border-dark);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+/* 左端の縦アクセント（インディゴ→シアン）で信頼感を付与 */
+.trust-band__card::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  inline-size: 4px;
+  background: var(--grad-ai);
+}
+
+.trust-band__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding-block: 6px;
+  padding-inline: var(--space-2);
+  background: rgba(6, 182, 212, 0.14);
+  color: var(--color-accent-2);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.trust-band__badge svg {
+  flex-shrink: 0;
+}
+
+.trust-band__body {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-block-start: var(--space-2);
+}
+
+/* 業務提携先ロゴ枠（許諾確認後にHTML側のコメントを解除して使用） */
+.trust-band__partner {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding-inline-end: var(--space-3);
+  border-inline-end: 1px solid var(--color-border-dark);
+}
+
+.trust-band__partner img {
+  max-block-size: 48px;
+  inline-size: auto;
+}
+
+.trust-band__partner-label {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-invert-muted);
+}
+
+.trust-band__text {
+  flex: 1;
+  min-inline-size: 260px;
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  color: var(--color-text-invert-muted);
+}
+
+.trust-band__text strong {
+  color: var(--color-text-invert);
+  font-weight: 700;
+}
+
+/* リンクは信頼の裏付け用。末尾に控えめ配置し、主CTA（.btn--cta）とは明確に差別化 */
+.trust-band__footer {
+  margin-block-start: var(--space-2);
+  text-align: end;
+}
+
+.trust-band__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-invert-muted);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.trust-band__link-tri {
+  flex-shrink: 0;
+}
+
+.trust-band__link:hover,
+.trust-band__link:focus-visible {
+  color: var(--color-accent-2);
+}
+
+@media (max-width: 768px) {
+  .trust-band__card { padding: 18px 20px 16px; }
+  .trust-band__body { gap: var(--space-2); }
+  .trust-band__partner {
+    inline-size: 100%;
+    padding-inline-end: 0;
+    padding-block-end: var(--space-2);
+    border-inline-end: none;
+    border-block-end: 1px solid var(--color-border-dark);
+  }
+  .trust-band__text { font-size: 0.8125rem; min-inline-size: 0; }
+  .trust-band__footer { text-align: start; }
+}
+
+/* --------------------------------------------------------------------------
+   11. モーション低減設定への配慮
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
