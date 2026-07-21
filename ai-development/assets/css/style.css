@@ -1736,7 +1736,114 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   19. モーション低減設定への配慮
+   19. 料金・進め方（ライト） Task 13
+   -------------------------------------------------------------------------- */
+.pricing__head {
+  max-inline-size: 640px;
+  margin-inline: auto;
+  margin-block-end: var(--space-9);
+  text-align: center;
+}
+
+.pricing__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.pricing__lead {
+  margin-block-start: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.pricing__block {
+  margin-block-end: var(--space-8);
+}
+
+.pricing__block-title {
+  margin-block-end: var(--space-4);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.pricing__steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.pricing-step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-5) var(--space-4);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.pricing-step__num {
+  color: var(--color-accent);
+  font-weight: 700;
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+}
+
+.pricing-step__title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.pricing-step__text {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.pricing__estimate-text {
+  max-inline-size: 640px;
+  margin-inline: auto;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.pricing__cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin-block-start: var(--space-8);
+  text-align: center;
+}
+
+.pricing__cta-text {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* タブレット：ステップ4カラム → 2カラム */
+@media (max-width: 900px) {
+  .pricing__steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* モバイル：ステップ2カラム → 1カラム */
+@media (max-width: 560px) {
+  .pricing__steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   20. モーション低減設定への配慮
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
