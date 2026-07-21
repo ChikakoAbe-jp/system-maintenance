@@ -82,11 +82,65 @@
   </script>
 </head>
 <body>
-  <!-- ヘッダー（後続タスクでセクションを追加） -->
+  <!-- ヘッダー -->
   <header id="header" class="header">
+    <div class="container header__inner">
+      <a href="https://jv-it.jp/" class="header__logo" aria-label="JV-IT ホームページへ">
+        <img src="assets/img/logo-jvit-white.png" alt="JV-IT" class="header__logo-img">
+      </a>
+      <nav class="header__nav" aria-label="メインナビゲーション">
+        <ul class="header__nav-list" role="list">
+          <li><a href="#flow">開発の流れ</a></li>
+          <li><a href="#cases">事例</a></li>
+          <li><a href="#reasons">選ばれる理由</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <a href="#contact" class="btn btn--cta header__cta">無料相談</a>
+    </div>
   </header>
 
   <main>
+    <!-- ヒーロー（ダーク） -->
+    <section id="hero" class="section section--dark hero">
+      <div class="container">
+        <div class="hero__inner">
+          <h1 class="hero__title">構想を、動くデモへ。最短数日で。</h1>
+          <p class="hero__subtitle">AI駆動開発 × 20年のオフショア受託で、新規開発・PoC・MVPを最短数日の"動くデモ"から形にする開発会社、JV-IT。</p>
+          <div class="hero__actions">
+            <a href="#contact" class="btn btn--cta">無料で相談する</a>
+            <a href="#flow" class="btn btn--ghost">開発の流れを見る</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 信頼スタッツ帯 -->
+    <section id="stats-bar" class="section section--soft stats-bar">
+      <div class="container stats-bar__grid">
+        <div class="stat">
+          <span class="stat__value font-tech"><span data-count="100" data-suffix="名">100</span>名</span>
+          <span class="stat__label">Claude認定エンジニア</span>
+        </div>
+        <div class="stat">
+          <span class="stat__value font-tech"><span data-count="3" data-suffix="%">3</span>%</span>
+          <span class="stat__label">離職率</span>
+          <span class="stat__note">業界平均20%</span>
+        </div>
+        <div class="stat">
+          <span class="stat__value font-tech"><span data-count="50" data-suffix="%〜">50</span>%〜</span>
+          <span class="stat__label">AI活用率</span>
+        </div>
+        <div class="stat">
+          <span class="stat__value font-tech"><span data-count="20" data-suffix="年">20</span>年</span>
+          <span class="stat__label">稼働実績</span>
+        </div>
+        <div class="stat">
+          <span class="stat__value font-tech"><span data-count="300" data-suffix="社+">300</span>社+</span>
+          <span class="stat__label">取引企業</span>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- フッター（後続タスクでセクションを追加） -->
