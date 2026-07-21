@@ -846,6 +846,7 @@ section[id] {
   flex-shrink: 0;
   border-radius: var(--radius-full);
   background: var(--grad-ai);
+  color: var(--color-text-invert);
 }
 
 .flow__effect-text {
