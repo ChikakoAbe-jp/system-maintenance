@@ -1,0 +1,190 @@
+// フェードイン (IntersectionObserver)
+document.addEventListener('DOMContentLoaded', () => {
+  const fadeElements = document.querySelectorAll('.fade-in');
+  if (!('IntersectionObserver' in window)) {
+    fadeElements.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  fadeElements.forEach(el => observer.observe(el));
+
+  // ヘッダー スクロール検知
+  const header = document.getElementById('header');
+  if (header) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 8) header.classList.add('header--scrolled');
+      else header.classList.remove('header--scrolled');
+    }, { passive: true });
+  }
+
+  // カウントアップ
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const counters = document.querySelectorAll('[data-count]');
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseFloat(el.dataset.count);
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const suffix = el.dataset.suffix || '';
+      // reduced-motion 設定時はアニメなしで即時最終値を表示
+      if (prefersReducedMotion) {
+        el.textContent = target.toFixed(decimals) + suffix;
+        countObserver.unobserve(el);
+        return;
+      }
+      const duration = 1400;
+      const start = performance.now();
+      const step = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = target * eased;
+        el.textContent = value.toFixed(decimals) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      countObserver.unobserve(el);
+    });
+  }, { threshold: 0.6 });
+  counters.forEach(el => countObserver.observe(el));
+
+  // カルーセル
+  const carousels = document.querySelectorAll('[data-carousel]');
+  const carouselUpdaters = [];
+
+  carousels.forEach(carousel => {
+    const viewport = carousel.querySelector('.carousel__viewport');
+    const track = carousel.querySelector('.carousel__track');
+    const prev = carousel.querySelector('[data-carousel-prev]');
+    const next = carousel.querySelector('[data-carousel-next]');
+    const dotsWrap = carousel.querySelector('[data-carousel-dots]');
+    const items = Array.from(track.children);
+    let index = 0;
+
+    const getVisibleCount = () => {
+      const width = window.innerWidth;
+      if (width <= 560) return 1;
+      if (width <= 900) return 2;
+      return 3;
+    };
+
+    const getMaxIndex = () => Math.max(0, items.length - getVisibleCount());
+
+    // スクロール位置ごとのドットを生成（数が変わったときのみ作り直す）
+    const renderDots = () => {
+      if (!dotsWrap) return;
+      const count = getMaxIndex() + 1;
+      if (dotsWrap.children.length === count) return;
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel__dot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', `${i + 1}番目の位置から事例を表示`);
+        dot.addEventListener('click', () => { index = i; update(); });
+        dotsWrap.appendChild(dot);
+      }
+    };
+
+    const update = () => {
+      const maxIndex = getMaxIndex();
+      index = Math.min(index, maxIndex);
+      const gap = 24;
+      const step = items[0].offsetWidth + gap;
+      // 末尾で余白が出ないよう、実スクロール幅でクランプ（peek対応）
+      const maxTranslate = Math.max(0, track.scrollWidth - viewport.clientWidth);
+      const translate = Math.min(index * step, maxTranslate);
+      track.style.transform = `translateX(${-translate}px)`;
+      prev.disabled = index === 0;
+      next.disabled = index >= maxIndex;
+      if (dotsWrap) {
+        Array.from(dotsWrap.children).forEach((d, i) => {
+          const active = i === index;
+          d.classList.toggle('is-active', active);
+          d.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+      }
+    };
+
+    const refresh = () => { renderDots(); update(); };
+
+    prev.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
+    next.addEventListener('click', () => { index = Math.min(getMaxIndex(), index + 1); update(); });
+
+    // キーボード操作
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { prev.click(); }
+      if (e.key === 'ArrowRight') { next.click(); }
+    });
+
+    carouselUpdaters.push(refresh);
+    refresh();
+  });
+
+  // リサイズはデバウンスで一括処理（イベントリークを防止）
+  if (carouselUpdaters.length > 0) {
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        carouselUpdaters.forEach(fn => fn());
+      }, 100);
+    });
+  }
+
+  // フローティングCTA
+  const fab = document.getElementById('floating-cta');
+  if (fab) {
+    const toggle = fab.querySelector('.floating-cta__toggle');
+    const menu = fab.querySelector('.floating-cta__menu');
+    const setOpen = (open) => {
+      fab.classList.toggle('floating-cta--open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'お問い合わせメニューを閉じる' : 'お問い合わせメニューを開く');
+      menu.hidden = !open;
+    };
+
+    // 初期表示は開いた状態。画面1つ分ほどスクロールしたら一度だけ自動で閉じる
+    setOpen(true);
+    let autoCollapseDone = false;
+    // ファーストビューを読み終える程度スクロールしたら閉じる（早すぎ防止）
+    const collapseThreshold = Math.max(500, window.innerHeight * 0.9);
+    const onFirstScroll = () => {
+      if (autoCollapseDone) return;
+      if (window.scrollY > collapseThreshold) {
+        autoCollapseDone = true;
+        setOpen(false);
+        window.removeEventListener('scroll', onFirstScroll);
+      }
+    };
+    window.addEventListener('scroll', onFirstScroll, { passive: true });
+
+    toggle.addEventListener('click', () => {
+      // ユーザーが手動操作したら自動クローズは無効化
+      autoCollapseDone = true;
+      window.removeEventListener('scroll', onFirstScroll);
+      const isOpen = fab.classList.contains('floating-cta--open');
+      setOpen(!isOpen);
+    });
+    // 外側クリックで閉じる
+    document.addEventListener('click', (e) => {
+      if (!fab.contains(e.target) && fab.classList.contains('floating-cta--open')) {
+        setOpen(false);
+      }
+    });
+    // Escで閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+    // 項目クリックで閉じる
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  }
+});
