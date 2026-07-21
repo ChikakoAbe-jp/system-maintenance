@@ -1368,7 +1368,243 @@ section[id] {
 }
 
 /* --------------------------------------------------------------------------
-   17. モーション低減設定への配慮
+   17. 導入事例カルーセル Task 11
+   -------------------------------------------------------------------------- */
+.cases__title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  color: var(--color-text);
+  text-align: center;
+}
+
+.cases__lead {
+  max-inline-size: 640px;
+  margin-inline: auto;
+  margin-block-start: var(--space-3);
+  margin-block-end: var(--space-6);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.carousel {
+  position: relative;
+}
+
+.carousel__viewport {
+  overflow: hidden;
+}
+
+.carousel__track {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  padding: 0;
+  transition: transform 400ms ease;
+}
+
+.case-card {
+  /* 3枚表示＋次カードの見切れ（peek）でスクロール可能と伝える */
+  flex: 0 0 calc((100% - 96px) / 3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.case-card--lead {
+  border-color: var(--color-cta);
+  border-width: 2px;
+}
+
+.case-card__flag {
+  align-self: flex-start;
+  padding: 4px 12px;
+  background: var(--color-cta);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+}
+
+.case-card__no {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-accent-2);
+}
+
+.case-card__title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--color-text);
+}
+
+.case-card__tag {
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.case-card__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.case-card__stat {
+  padding: 6px 12px;
+  background: var(--color-bg-soft);
+  border-left: 3px solid var(--color-accent-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}
+
+.case-card__stat b {
+  margin-right: 4px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-cta);
+}
+
+.case-card__ba {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 8px 12px;
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+}
+
+.case-card__ba dt {
+  align-self: start;
+  margin-top: 2px;
+  padding: 2px 0;
+  background: var(--color-accent);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  border-radius: 4px;
+}
+
+.case-card__ba dt:nth-of-type(2) {
+  background: var(--color-accent-2);
+}
+
+.case-card__ba dt:nth-of-type(3) {
+  background: var(--color-cta);
+}
+
+.case-card__ba dd {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* 左右ボタンはカルーセル下に中央寄せで配置（カード内テキストへの被りを回避） */
+.carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: var(--space-4);
+}
+
+.carousel__btn {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.carousel__btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.carousel__btn:hover {
+  background: var(--color-accent);
+  color: #FFFFFF;
+  border-color: var(--color-accent);
+  transform: scale(1.05);
+}
+
+.carousel__btn:focus-visible {
+  outline: 2px solid var(--color-accent-2);
+  outline-offset: 3px;
+}
+
+.carousel__btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ページネーションドット（スクロール位置の可視化。ボタン自体はJSが生成） */
+.carousel__dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel__dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-border);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.carousel__dot:hover {
+  background: var(--color-accent-2);
+}
+
+.carousel__dot.is-active {
+  background: var(--color-accent);
+  transform: scale(1.25);
+}
+
+.carousel__dot:focus-visible {
+  outline: 2px solid var(--color-accent-2);
+  outline-offset: 2px;
+}
+
+/* タブレット：3枚表示 → 2枚表示（main.jsのgetVisibleCountと同じブレークポイント） */
+@media (max-width: 900px) {
+  .case-card {
+    flex: 0 0 calc((100% - 72px) / 2);
+  }
+}
+
+/* モバイル：2枚表示 → 1枚表示 */
+@media (max-width: 560px) {
+  .case-card {
+    flex: 0 0 calc(100% - 56px);
+  }
+
+  .case-card__ba {
+    grid-template-columns: 48px 1fr;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   18. モーション低減設定への配慮
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
