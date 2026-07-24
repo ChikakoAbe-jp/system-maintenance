@@ -1914,6 +1914,20 @@ body {
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.7;
 }
+/* プライバシーマーク：透過PNGのため白プレート上に配置し登録番号を判読可能にする */
+.footer__pmark {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 8px;
+  background-color: var(--color-white);
+  border-radius: var(--radius-sm);
+  line-height: 0;
+}
+.footer__pmark img {
+  display: block;
+  width: 64px;
+  height: 64px;
+}
 .footer__nav {
   display: flex;
   flex-direction: column;
