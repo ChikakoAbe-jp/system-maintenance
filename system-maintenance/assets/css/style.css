@@ -211,15 +211,19 @@ h3 { font-size: 24px; }
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  /* フェードイン・ボタン・カルーセル・シミュレーターバーのアニメーションを無効化 */
+  /* フェードイン・ボタン・カルーセル・シミュレーターバー・フローティングCTAのアニメーションを無効化 */
   .fade-in,
   .btn,
   .carousel__track,
   .simulator__bar-ai,
-  .simulator__bar-human { transition: none; }
+  .simulator__bar-human,
+  .floating-cta__menu,
+  .floating-cta__item { transition: none; }
   * { animation: none !important; }
   /* フェードイン要素を即時表示（JSのオブザーバーが動く前でも見える状態に） */
   .fade-in { opacity: 1; transform: none; }
+  /* CTA項目は開いた時に即表示（transform遅延で消えないように） */
+  .floating-cta--open .floating-cta__item { opacity: 1; transform: none; }
 }
 
 /* ============================================
@@ -1977,14 +1981,25 @@ body {
   flex-direction: column;
   gap: 8px;
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  transform: translateY(12px) scale(0.96);
+  transform-origin: bottom right;
+  visibility: hidden;
   pointer-events: none;
+  /* ふわっと表示/非表示：やわらかいイージング。visibilityはフェードし切ってから切替 */
+  transition:
+    opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 320ms;
 }
 .floating-cta--open .floating-cta__menu {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  visibility: visible;
   pointer-events: auto;
+  transition:
+    opacity 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s;
 }
 .floating-cta__item {
   display: flex;
@@ -1997,9 +2012,23 @@ body {
   font-size: 14px;
   font-weight: 700;
   color: var(--color-navy);
-  transition: background-color var(--transition-fast), color var(--transition-fast);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 260ms ease,
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+    background-color var(--transition-fast),
+    color var(--transition-fast);
   white-space: nowrap;
 }
+/* 開いたとき、下の項目から順にふわっと立ち上がる */
+.floating-cta--open .floating-cta__item {
+  opacity: 1;
+  transform: translateY(0);
+}
+.floating-cta--open li:nth-last-child(1) .floating-cta__item { transition-delay: 0.04s; }
+.floating-cta--open li:nth-last-child(2) .floating-cta__item { transition-delay: 0.09s; }
+.floating-cta--open li:nth-last-child(3) .floating-cta__item { transition-delay: 0.14s; }
 .floating-cta__item svg { width: 18px; height: 18px; }
 .floating-cta__item:hover {
   background-color: var(--color-navy);

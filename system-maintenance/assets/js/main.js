@@ -218,7 +218,15 @@ document.addEventListener('DOMContentLoaded', () => {
       fab.classList.toggle('floating-cta--open', open);
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
       toggle.setAttribute('aria-label', open ? 'お問い合わせメニューを閉じる' : 'お問い合わせメニューを開く');
-      menu.hidden = !open;
+      // 表示/非表示はCSS（opacity/visibility）でふわっとアニメーション。
+      // アクセシビリティのため、閉じ切ってから aria-hidden を付与（開く時は即解除）
+      if (open) {
+        menu.removeAttribute('aria-hidden');
+      } else {
+        window.setTimeout(() => {
+          if (!fab.classList.contains('floating-cta--open')) menu.setAttribute('aria-hidden', 'true');
+        }, 320);
+      }
     };
 
     // スクロール連動の自動開閉（SPとPCで挙動を分ける）
