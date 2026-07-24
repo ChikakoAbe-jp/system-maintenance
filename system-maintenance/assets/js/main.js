@@ -221,25 +221,40 @@ document.addEventListener('DOMContentLoaded', () => {
       menu.hidden = !open;
     };
 
-    // 初期表示は開いた状態。画面1つ分ほどスクロールしたら一度だけ自動で閉じる
-    setOpen(true);
-    let autoCollapseDone = false;
-    // ファーストビューを読み終える程度スクロールしたら閉じる（早すぎ防止）
-    const collapseThreshold = Math.max(500, window.innerHeight * 0.9);
-    const onFirstScroll = () => {
-      if (autoCollapseDone) return;
-      if (window.scrollY > collapseThreshold) {
-        autoCollapseDone = true;
-        setOpen(false);
-        window.removeEventListener('scroll', onFirstScroll);
-      }
+    // スクロール連動の自動開閉（SPとPCで挙動を分ける）
+    const isSP = window.matchMedia('(max-width: 768px)').matches;
+    let autoScroll = null;
+    const stopAuto = () => {
+      if (autoScroll) { window.removeEventListener('scroll', autoScroll); autoScroll = null; }
     };
-    window.addEventListener('scroll', onFirstScroll, { passive: true });
+
+    if (isSP) {
+      // スマホ：最初は閉じ、少しスクロールで開き、しばらくスクロールで再び閉じる（各1回）
+      setOpen(false);
+      const OPEN_AT = 250;      // 「少し」スクロールしたら開く
+      const CLOSE_AT = 1300;    // 「しばらく」スクロールしたら閉じる
+      let phase = 'wait-open';  // wait-open → wait-close → done
+      autoScroll = () => {
+        const y = window.scrollY;
+        if (phase === 'wait-open' && y > OPEN_AT) {
+          setOpen(true); phase = 'wait-close';
+        } else if (phase === 'wait-close' && y > CLOSE_AT) {
+          setOpen(false); phase = 'done'; stopAuto();
+        }
+      };
+    } else {
+      // PC：最初は開いた状態。画面1つ分ほどスクロールしたら一度だけ閉じる
+      setOpen(true);
+      const collapseThreshold = Math.max(500, window.innerHeight * 0.9);
+      autoScroll = () => {
+        if (window.scrollY > collapseThreshold) { setOpen(false); stopAuto(); }
+      };
+    }
+    window.addEventListener('scroll', autoScroll, { passive: true });
 
     toggle.addEventListener('click', () => {
-      // ユーザーが手動操作したら自動クローズは無効化
-      autoCollapseDone = true;
-      window.removeEventListener('scroll', onFirstScroll);
+      // ユーザーが手動操作したら自動開閉は無効化
+      stopAuto();
       const isOpen = fab.classList.contains('floating-cta--open');
       setOpen(!isOpen);
     });
