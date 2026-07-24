@@ -81,6 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const dotsWrap = carousel.querySelector('[data-carousel-dots]');
     const items = Array.from(track.children);
     let index = 0;
+    const GAP = 24;
+
+    // SP幅ではネイティブ横スクロール（フリック）を使う
+    const isNative = () => window.matchMedia('(max-width: 768px)').matches;
+    const stepSize = () => items[0].offsetWidth + GAP;
 
     const getVisibleCount = () => {
       const width = window.innerWidth;
@@ -90,6 +95,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const getMaxIndex = () => Math.max(0, items.length - getVisibleCount());
+
+    // 矢印の活性/ドットのアクティブ状態を反映（表示モード共通）
+    const setActiveState = (activeIndex, maxIndex) => {
+      prev.disabled = activeIndex <= 0;
+      next.disabled = activeIndex >= maxIndex;
+      if (dotsWrap) {
+        Array.from(dotsWrap.children).forEach((d, i) => {
+          const active = i === activeIndex;
+          d.classList.toggle('is-active', active);
+          d.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+      }
+    };
 
     // スクロール位置ごとのドットを生成（数が変わったときのみ作り直す）
     const renderDots = () => {
@@ -103,35 +121,72 @@ document.addEventListener('DOMContentLoaded', () => {
         dot.className = 'carousel__dot';
         dot.setAttribute('role', 'tab');
         dot.setAttribute('aria-label', `${i + 1}番目の位置から事例を表示`);
-        dot.addEventListener('click', () => { index = i; update(); });
+        dot.addEventListener('click', () => {
+          if (isNative()) {
+            viewport.scrollTo({ left: i * stepSize(), behavior: 'smooth' });
+          } else {
+            index = i; update();
+          }
+        });
         dotsWrap.appendChild(dot);
       }
     };
 
+    // PC等：transformでスライド
     const update = () => {
       const maxIndex = getMaxIndex();
       index = Math.min(index, maxIndex);
-      const gap = 24;
-      const step = items[0].offsetWidth + gap;
+      const step = stepSize();
       // 末尾で余白が出ないよう、実スクロール幅でクランプ（peek対応）
       const maxTranslate = Math.max(0, track.scrollWidth - viewport.clientWidth);
       const translate = Math.min(index * step, maxTranslate);
       track.style.transform = `translateX(${-translate}px)`;
-      prev.disabled = index === 0;
-      next.disabled = index >= maxIndex;
-      if (dotsWrap) {
-        Array.from(dotsWrap.children).forEach((d, i) => {
-          const active = i === index;
-          d.classList.toggle('is-active', active);
-          d.setAttribute('aria-selected', active ? 'true' : 'false');
-        });
+      setActiveState(index, maxIndex);
+    };
+
+    // SP：ネイティブスクロール位置から現在インデックスを算出して同期
+    const syncNative = () => {
+      const maxIndex = getMaxIndex();
+      index = Math.min(Math.round(viewport.scrollLeft / stepSize()), maxIndex);
+      setActiveState(index, maxIndex);
+    };
+
+    const refresh = () => {
+      renderDots();
+      if (isNative()) {
+        // ネイティブスクロールに切替時はtransformを解除
+        track.style.transform = '';
+        syncNative();
+      } else {
+        update();
       }
     };
 
-    const refresh = () => { renderDots(); update(); };
+    prev.addEventListener('click', () => {
+      if (isNative()) {
+        viewport.scrollBy({ left: -stepSize(), behavior: 'smooth' });
+      } else {
+        index = Math.max(0, index - 1); update();
+      }
+    });
+    next.addEventListener('click', () => {
+      if (isNative()) {
+        viewport.scrollBy({ left: stepSize(), behavior: 'smooth' });
+      } else {
+        index = Math.min(getMaxIndex(), index + 1); update();
+      }
+    });
 
-    prev.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
-    next.addEventListener('click', () => { index = Math.min(getMaxIndex(), index + 1); update(); });
+    // フリック（ネイティブスクロール）中はドット/矢印を同期（rAFで間引き）
+    let scrollRaf = 0;
+    viewport.addEventListener('scroll', () => {
+      if (!isNative()) return;
+      if (scrollRaf) return;
+      scrollRaf = requestAnimationFrame(() => {
+        scrollRaf = 0;
+        syncNative();
+      });
+    }, { passive: true });
 
     // キーボード操作
     carousel.addEventListener('keydown', (e) => {

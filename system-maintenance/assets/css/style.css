@@ -1172,6 +1172,17 @@ body {
   /* 1枚表示＋次カードを見切れさせる */
   .case-card { flex: 0 0 calc(100% - 56px); }
 }
+/* SP: フリック（スワイプ）で左右スクロール。矢印・ドットはネイティブスクロールに同期させて維持 */
+@media (max-width: 768px) {
+  .carousel__viewport {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;              /* Firefox: スクロールバー非表示 */
+  }
+  .carousel__viewport::-webkit-scrollbar { display: none; } /* Chrome/Safari: 同上 */
+  .case-card { scroll-snap-align: start; }
+}
 
 /* ============================================
    Services
@@ -1486,6 +1497,8 @@ body {
   margin-left: auto;
   width: 12px;
   height: 12px;
+  flex-shrink: 0;               /* 長い質問文で横に潰れて✓に見えるのを防止 */
+  box-sizing: border-box;
   border-right: 2px solid var(--color-navy);
   border-bottom: 2px solid var(--color-navy);
   transform: rotate(45deg);
