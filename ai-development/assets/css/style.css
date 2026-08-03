@@ -730,6 +730,14 @@ section[id] {
   color: var(--color-text-invert);
 }
 
+/* タイムラインが一例である旨の注記 */
+.flow__note {
+  margin-block-start: var(--space-3);
+  font-size: var(--fs-sm);
+  color: var(--color-text-invert);
+  opacity: 0.7;
+}
+
 /* PC：横フロー。各ステップは等幅カラムで、円番号の中心を通る接続線でつなぐ */
 .flow__timeline {
   position: relative;
@@ -1361,7 +1369,6 @@ section[id] {
   max-height: 100%;
   width: auto;
   height: auto;
-  filter: grayscale(1) opacity(0.75);
 }
 
 /* タブレット：6枚 → 3列 */
@@ -2352,12 +2359,29 @@ section[id] {
 .footer__brand {
   display: flex;
   flex-direction: column;
+  align-items: flex-start; /* ロゴ・プライバシーマークが横に引き伸ばされるのを防ぐ */
   gap: var(--space-1);
 }
 
 .footer__logo {
   block-size: 32px;
   inline-size: auto;
+}
+
+/* プライバシーマーク：透過PNGのため白プレート上に配置し登録番号を判読可能にする */
+.footer__pmark {
+  display: inline-block;
+  margin-block-start: var(--space-3);
+  padding: 8px;
+  background-color: #fff;
+  border-radius: var(--radius-sm);
+  line-height: 0;
+}
+
+.footer__pmark img {
+  display: block;
+  inline-size: 64px;
+  block-size: 64px;
 }
 
 .footer__company {
@@ -2464,82 +2488,4 @@ section[id] {
   .flow__connector {
     animation: none;
   }
-}
-
-/* --------------------------------------------------------------------------
-   25. フローティングCTA（Task 17）
-   -------------------------------------------------------------------------- */
-.floating-cta {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 90;
-}
-
-.floating-cta__toggle {
-  width: 60px;
-  height: 60px;
-  border-radius: var(--radius-full);
-  background-color: var(--color-cta);
-  color: var(--color-text-invert);
-  box-shadow: var(--btn-shadow-cta);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.floating-cta__toggle:hover {
-  background-color: var(--color-cta-hover);
-  transform: scale(1.05);
-}
-
-.floating-cta__toggle svg { width: 26px; height: 26px; }
-
-.floating-cta__menu {
-  position: absolute;
-  right: 0;
-  bottom: 72px;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  pointer-events: none;
-}
-
-.floating-cta--open .floating-cta__menu {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-.floating-cta__item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 20px;
-  background-color: var(--color-bg);
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--ink);
-  transition: background-color 0.2s ease, color 0.2s ease;
-  white-space: nowrap;
-}
-
-.floating-cta__item svg { width: 18px; height: 18px; }
-
-.floating-cta__item:hover {
-  background-color: var(--ink);
-  color: var(--color-text-invert);
-}
-
-@media (max-width: 560px) {
-  .floating-cta { right: 16px; bottom: 16px; }
-  .floating-cta__toggle { width: 52px; height: 52px; }
-  .floating-cta__toggle svg { width: 22px; height: 22px; }
 }
