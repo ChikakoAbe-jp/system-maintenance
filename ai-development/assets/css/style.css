@@ -408,15 +408,38 @@ section[id] {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  background:
-    radial-gradient(60% 50% at 50% 0%, rgba(79, 70, 229, 0.35), transparent 70%),
-    radial-gradient(40% 40% at 85% 15%, rgba(6, 182, 212, 0.25), transparent 70%),
-    linear-gradient(180deg, var(--color-bg-dark) 0%, #000000 100%);
+  /* 画像読み込み前・失敗時のフォールバック（ダーク地） */
+  background: var(--color-bg-dark);
   padding-block-start: calc(var(--space-8) + var(--header-h));
   text-align: center;
 }
 
-/* 微光グリッド（画像不使用・CSSのみ） */
+/* 背景写真レイヤー（system-maintenance LPと同じ hero-bg.jpg を流用） */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ブランドの世界観（インディゴ↔シアンの微光＋ダーク地）を写真の上に重ね、
+   文字の可読性を確保しつつ既存の雰囲気を保つ */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(79, 70, 229, 0.38), transparent 70%),
+    radial-gradient(40% 40% at 85% 15%, rgba(6, 182, 212, 0.24), transparent 70%),
+    linear-gradient(180deg, rgba(11, 16, 32, 0.69) 0%, rgba(0, 0, 0, 0.80) 100%);
+  pointer-events: none;
+}
+
+/* 微光グリッド（オーバーレイの上・コンテンツの下） */
 .hero::before {
   content: "";
   position: absolute;
@@ -428,13 +451,13 @@ section[id] {
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, black 30%, transparent 75%);
   mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, black 30%, transparent 75%);
   animation: hero-grid-pan 24s linear infinite;
-  z-index: 0;
+  z-index: 2;
   pointer-events: none;
 }
 
 .hero__inner {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
