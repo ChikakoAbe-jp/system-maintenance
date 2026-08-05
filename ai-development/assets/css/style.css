@@ -1443,6 +1443,11 @@ section[id] {
   overflow: hidden;
   /* SPの横フリックを拾いつつ、縦スクロールはブラウザに委ねる */
   touch-action: pan-y;
+  /* 上下の切り取り境界にカードの枠線・影が接すると、スマホ（WebKit）の縦スクロール時に
+     transformレイヤーの再描画で上端の枠線が明滅する。縦だけ余白を持たせて境界から離し、
+     同じ分を負マージンで相殺してレイアウト位置は変えない（横の見切れ演出は維持）。 */
+  padding-block: 20px;
+  margin-block: -20px;
 }
 
 .carousel__track {
