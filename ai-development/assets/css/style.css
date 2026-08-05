@@ -43,7 +43,7 @@
   --color-text: var(--ink);
   --color-text-invert: var(--ink-invert);
   --color-text-muted: var(--slate-600);
-  --color-text-invert-muted: var(--slate-400);
+  --color-text-invert-muted: var(--slate-300);
 
   --color-bg: var(--surface);
   --color-bg-soft: var(--surface-soft);
@@ -1012,6 +1012,13 @@ section[id] {
   color: var(--color-text);
 }
 
+/* タイトル下のキャッチコピー（対象読者を一言で示す） */
+.style-card__catch {
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
 .style-card__meta {
   display: flex;
   flex-direction: column;
@@ -1411,6 +1418,8 @@ section[id] {
 
 .carousel__viewport {
   overflow: hidden;
+  /* SPの横フリックを拾いつつ、縦スクロールはブラウザに委ねる */
+  touch-action: pan-y;
 }
 
 .carousel__track {

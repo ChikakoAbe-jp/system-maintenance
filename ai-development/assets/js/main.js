@@ -125,6 +125,45 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.key === 'ArrowRight') { next.click(); }
     });
 
+    // タッチ操作（SPで指を左右にフリックして事例を切り替える）
+    let touchStartX = 0;
+    let touchDeltaX = 0;
+    let dragging = false;
+
+    const getStep = () => items[0].offsetWidth + 24;
+    const getMaxTranslate = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
+
+    viewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchDeltaX = 0;
+      dragging = true;
+      track.style.transition = 'none'; // 指の動きに追従させる間はアニメを無効化
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', (e) => {
+      if (!dragging) return;
+      touchDeltaX = e.touches[0].clientX - touchStartX;
+      const base = Math.min(index * getStep(), getMaxTranslate());
+      let translate = base - touchDeltaX;
+      translate = Math.max(0, Math.min(translate, getMaxTranslate())); // 端を超えないようクランプ
+      track.style.transform = `translateX(${-translate}px)`;
+    }, { passive: true });
+
+    const endTouch = () => {
+      if (!dragging) return;
+      dragging = false;
+      track.style.transition = ''; // CSSのスライドアニメを復帰
+      const threshold = Math.min(80, getStep() * 0.2);
+      if (touchDeltaX <= -threshold) {
+        index = Math.min(getMaxIndex(), index + 1);
+      } else if (touchDeltaX >= threshold) {
+        index = Math.max(0, index - 1);
+      }
+      update(); // スナップして位置・ドット・ボタン状態を確定
+    };
+    viewport.addEventListener('touchend', endTouch);
+    viewport.addEventListener('touchcancel', endTouch);
+
     carouselUpdaters.push(refresh);
     refresh();
   });
