@@ -349,7 +349,26 @@ body {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.hero__pricing-link {
   margin-bottom: 32px;
+  font-size: 15px;
+}
+.hero__pricing-link a {
+  color: var(--color-white);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  padding-bottom: 2px;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+.hero__pricing-link a::after {
+  content: '→';
+  margin-left: 8px;
+}
+.hero__pricing-link a:hover,
+.hero__pricing-link a:focus-visible {
+  color: var(--color-cyan);
+  border-bottom-color: var(--color-cyan);
 }
 .hero__badges {
   display: flex;
@@ -1019,6 +1038,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 .case-card__industry {
   position: absolute;
@@ -1403,6 +1423,78 @@ body {
 }
 @media (max-width: 560px) {
   .voices__list { grid-template-columns: 1fr; }
+}
+
+/* ============================================
+   Handover Flow（引き継ぎの4ステップ）
+   ============================================ */
+.handover__lead {
+  max-width: 880px;
+  margin: -24px auto 56px;
+  text-align: center;
+  color: var(--color-gray-800);
+}
+.handover__list {
+  list-style: none;
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.handover-step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 20px;
+  align-items: start;
+  background-color: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-left: 4px solid var(--color-cyan);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+}
+.handover-step__num {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-cyan);
+}
+.handover-step__title {
+  font-size: 20px;
+  color: var(--color-navy);
+  margin-bottom: 12px;
+}
+.handover-step__text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--color-gray-800);
+}
+.handover__note {
+  max-width: 880px;
+  margin: 40px auto 0;
+  padding: 24px 32px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-cyan);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-gray-800);
+}
+.handover__note strong {
+  color: var(--color-navy);
+}
+
+@media (max-width: 560px) {
+  .handover__lead { margin-bottom: 40px; }
+  .handover-step {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 20px;
+  }
+  .handover-step__num { font-size: 28px; }
+  .handover-step__title { font-size: 18px; }
+  .handover__note { padding: 20px; font-size: 15px; }
 }
 
 /* ============================================
@@ -2053,4 +2145,19 @@ body {
   .floating-cta { right: 16px; bottom: 16px; }
   .floating-cta__toggle { width: 52px; height: 52px; }
   .floating-cta__toggle svg { width: 22px; height: 22px; }
+}
+
+/* ============================================
+   Contact Complete（本番の送信完了ページ用）
+   ============================================ */
+.contact-complete-section .form__review {
+  text-align: center;
+  font-size: 16px;
+  color: var(--color-navy);
+  margin-bottom: 30px;
+}
+
+.contact-complete-section .contact__box {
+  margin: 0 auto;
+  text-align: center;
 }
