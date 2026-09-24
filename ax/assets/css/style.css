@@ -114,8 +114,10 @@ input, textarea, select { font: inherit; color: inherit; }
 .band--paper2{ background: var(--paper-2); color: var(--on-paper); }
 
 /* 墨地・紙地それぞれの罫線色を、子孫がそのまま使えるようにする */
-.band--ink, .band--ink2 { --rule: var(--on-ink-line); --mute: var(--on-ink-mute); --fg: var(--on-ink); }
-.band--paper, .band--paper2 { --rule: var(--on-paper-line); --mute: var(--on-paper-mute); --fg: var(--on-paper); }
+.band--ink   { --rule: var(--on-ink-line);   --mute: var(--on-ink-mute);   --fg: var(--on-ink);   --band-bg: var(--ink); }
+.band--ink2  { --rule: var(--on-ink-line);   --mute: var(--on-ink-mute);   --fg: var(--on-ink);   --band-bg: var(--ink-2); }
+.band--paper { --rule: var(--on-paper-line); --mute: var(--on-paper-mute); --fg: var(--on-paper); --band-bg: var(--paper); }
+.band--paper2{ --rule: var(--on-paper-line); --mute: var(--on-paper-mute); --fg: var(--on-paper); --band-bg: var(--paper-2); }
 
 /* 節の見出し：左に通し番号を垂らし、細い罫で受ける */
 .sec-head {
@@ -526,7 +528,44 @@ input, textarea, select { font: inherit; color: inherit; }
 }
 
 /* 表：枠線を描かず、横罫だけで組む */
-.tbl-scroll { overflow-x: auto; }
+
+/* 「横にスクロールできます」の案内。収まりきる画面では出さない */
+.tbl-hint { display: none; }
+@media (max-width: 760px) {
+  .tbl-hint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    color: var(--vermillion);
+    margin-bottom: 10px;
+  }
+  /* 右向きの矢印が小さく行き来して、動かせることを示す */
+  .tbl-hint::after {
+    content: "";
+    width: 20px; height: 1px;
+    background: var(--vermillion);
+    position: relative;
+    animation: hint-slide 1.6s var(--ease) infinite;
+  }
+}
+@keyframes hint-slide {
+  0%, 100% { transform: translateX(0); opacity: .45; }
+  50%      { transform: translateX(7px); opacity: 1; }
+}
+
+/* スクロールできる側の端だけ地の色がぼけて、動かせることが見て分かる。
+   local/scroll の組み合わせで、端まで送ると影が自然に消える（JSなし） */
+.tbl-scroll {
+  overflow-x: auto;
+  background:
+    linear-gradient(to right, var(--band-bg) 30%, transparent) left center / 36px 100% no-repeat local,
+    linear-gradient(to left,  var(--band-bg) 30%, transparent) right center / 36px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(217,58,30,.22), transparent) left center / 14px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(217,58,30,.22), transparent) right center / 14px 100% no-repeat scroll;
+}
 .tbl { min-width: 620px; font-size: 15px; }
 .tbl caption {
   caption-side: top;
