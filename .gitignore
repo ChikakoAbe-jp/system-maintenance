@@ -1,1 +1,6 @@
 .playwright-mcp/
+
+# AX LP：元資料とデザイン差し替え前のバックアップは公開しない
+ax/download_1.png
+ax/*.pdf
+*.bak-v1
